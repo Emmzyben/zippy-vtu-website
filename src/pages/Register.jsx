@@ -251,6 +251,11 @@ const Register = () => {
                     Sign in
                   </Link>
                 </p>
+                <p className="text-neutral-600">
+                    <Link to="/" className=" hover:underline font-medium">
+                     Or go to Landing Page
+                    </Link>
+                  </p>
               </div>
             </form>
           </div>

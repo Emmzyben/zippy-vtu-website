@@ -148,12 +148,18 @@ const Login = () => {
 
               {/* Register Link */}
               <div className="text-center pt-2">
-                <p className="text-neutral-600">
-                  Don&#39;t have an account?{' '}
-                  <Link to="/register" className="text-[#F59E0B] hover:underline font-medium">
-                    Sign up
-                  </Link>
-                </p>
+                  <p className="text-neutral-600">
+                    Don&#39;t have an account?{' '}
+                    <Link to="/register" className="text-[#F59E0B] hover:underline font-medium">
+                      Sign up
+                    </Link>
+                  </p>
+                  <p className="text-neutral-600">
+                    <Link to="/" className=" hover:underline font-medium">
+                     Or go to Landing Page
+                    </Link>
+                  </p>
+
               </div>
             </form>
           </div>

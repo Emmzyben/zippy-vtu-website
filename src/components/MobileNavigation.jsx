@@ -5,7 +5,7 @@ const MobileNavigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', icon: Home, label: 'Home' },
+    { path: '/home', icon: Home, label: 'Home' },
     { path: '/airtime', icon: Smartphone, label: 'Airtime' },
     { path: '/data', icon: Wifi, label: 'Data' },
     { path: '/bills', icon: Receipt, label: 'Bills' },

@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Use environment variables provided by your build tool (e.g., VITE_*, REACT_APP_*, NEXT_PUBLIC_*)
 const API_BASE_URL = 'https://zippy-vtu.onrender.com';
 
 const api = axios.create({
