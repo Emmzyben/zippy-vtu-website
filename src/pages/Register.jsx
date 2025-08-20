@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import GoogleSignInButton from '../components/GoogleSignInButton';
 import { MdPerson, MdEmail, MdPhone, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import { useNotification } from '../components/notificationContext';
 import bgImage from '../../src/assets/bg.png';
 
 const Register = () => {
@@ -16,12 +17,12 @@ const Register = () => {
     referral_code: ''
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { register } = useAuth();
   const navigate = useNavigate();
+  const { showNotification } = useNotification();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,10 +31,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      showNotification({ type: 'error', message: 'Passwords do not match' });
       setLoading(false);
       return;
     }
@@ -48,9 +48,10 @@ const Register = () => {
       };
 
       await register(userData);
-      navigate('/');
+      showNotification({ type: 'success', message: 'Registration successful! Welcome to Zippy Pay.' });
+      navigate('/home');
     } catch (err) {
-      setError(err.message);
+      showNotification({ type: 'error', message: err.message });
     } finally {
       setLoading(false);
     }
@@ -227,7 +228,7 @@ const Register = () => {
           {/* Google */}
           <GoogleSignInButton 
             referralCode={formData.referral_code}
-            onSuccess={() => navigate('/')}
+            onSuccess={() => navigate('/home')}
             onError={(err) => setError(err)}
           />
 

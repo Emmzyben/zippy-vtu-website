@@ -17,6 +17,7 @@ import Wallet from './pages/Wallet';
 import Transactions from './pages/Transactions';
 import Referral from './pages/Referral';
 import Profile from './pages/Profile';
+import { NotificationProvider } from './components/notificationContext';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -43,73 +44,123 @@ const PublicRoute = ({ children }) => {
     );
   }
 
-  return !isAuthenticated ? children : <Navigate to="/" />;
+  return !isAuthenticated ? children : <Navigate to="/home" />;
 };
 
 function AppRoutes() {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-  {/* Public Routes */}
-  <Route index element={   
-    <PublicRoute>
-      <Landing />
-    </PublicRoute>
-  } />
-  <Route path="/login" element={
-    <PublicRoute>
-      <Login />
-    </PublicRoute>
-  } />
-  <Route path="/register" element={
-    <PublicRoute>
-      <Register />
-    </PublicRoute>
-  } />
+        {/* Default redirect */}
+        <Route
+          index
+          element={
+            isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/landing" />
+          }
+        />
 
-  {/* Protected Routes */}
-  <Route path="/home" element={   // 👈 move Home to /home
-    <ProtectedRoute>
-      <Home />
-    </ProtectedRoute>
-  } />
-  <Route path="/airtime" element={
-    <ProtectedRoute>
-      <Airtime />
-    </ProtectedRoute>
-  } />
-  <Route path="/data" element={
-    <ProtectedRoute>
-      <Data />
-    </ProtectedRoute>
-  } />
-  <Route path="/bills" element={
-    <ProtectedRoute>
-      <Bills />
-    </ProtectedRoute>
-  } />
-  <Route path="/wallet" element={
-    <ProtectedRoute>
-      <Wallet />
-    </ProtectedRoute>
-  } />
-  <Route path="/transactions" element={
-    <ProtectedRoute>
-      <Transactions />
-    </ProtectedRoute>
-  } />
-  <Route path="/referral" element={
-    <ProtectedRoute>
-      <Referral />
-    </ProtectedRoute>
-  } />
-  <Route path="/profile" element={
-    <ProtectedRoute>
-      <Profile />
-    </ProtectedRoute>
-  } />
-</Route>
+        {/* Public Routes */}
+        <Route
+          path="/landing"
+          element={
+            <PublicRoute>
+              <Landing />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
 
+        {/* Protected Routes */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/airtime"
+          element={
+            <ProtectedRoute>
+              <Airtime />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/data"
+          element={
+            <ProtectedRoute>
+              <Data />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bills"
+          element={
+            <ProtectedRoute>
+              <Bills />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/wallet"
+          element={
+            <ProtectedRoute>
+              <Wallet />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/transactions"
+          element={
+            <ProtectedRoute>
+              <Transactions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/referral"
+          element={
+            <ProtectedRoute>
+              <Referral />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
     </Routes>
   );
 }
@@ -118,9 +169,11 @@ function App() {
   return (
     <AuthProvider>
       <WalletProvider>
-        <Router>
-          <AppRoutes />
-        </Router>
+        <NotificationProvider>
+          <Router>
+            <AppRoutes />
+          </Router>
+        </NotificationProvider>
       </WalletProvider>
     </AuthProvider>
   );

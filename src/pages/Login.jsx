@@ -4,16 +4,16 @@ import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import GoogleSignInButton from '../components/GoogleSignInButton';
 import { MdEmail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import bgImage from '../../src/assets/bg.png';
+import { useNotification } from '../components/notificationContext';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { showNotification } = useNotification();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,12 +22,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
     try {
       await login(formData.email, formData.password);
-      navigate('/');
+      showNotification({ type: 'success', message: 'Login successful! Welcome back.' });
+      navigate('/home');
     } catch (err) {
-      setError(err.message);
+      showNotification({ type: 'error', message: err.message });
     } finally {
       setLoading(false);
     }
@@ -58,12 +58,6 @@ const Login = () => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-              {error}
-            </div>
-          )}
-
           {/* Email */}
           <div>
             <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
@@ -127,8 +121,11 @@ const Login = () => {
 
           {/* Google */}
           <GoogleSignInButton 
-            onSuccess={() => navigate('/')}
-            onError={(err) => setError(err)}
+            onSuccess={() => {
+              showNotification({ type: 'success', message: 'Google login successful! Welcome back.' });
+              navigate('/home');
+            }}
+            onError={(err) => showNotification({ type: 'error', message: err })}
           />
 
           {/* Register */}
