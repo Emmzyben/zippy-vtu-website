@@ -5,7 +5,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import GoogleSignInButton from '../components/GoogleSignInButton';
 import { MdPerson, MdEmail, MdPhone, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { useNotification } from '../components/notificationContext';
-import logo from '../../assets/logo.png';
+import bg from '../../assets/bg.png';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -64,7 +64,7 @@ const Register = () => {
          <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
         <div className="text-center mb-6">
           <img
-            src={logo} 
+            src={bg} 
             alt="Zippy Pay Logo"
             className="h-30 w-30 mx-auto rounded-full object-cover shadow"
           />
