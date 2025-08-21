@@ -6,6 +6,7 @@ import GoogleSignInButton from '../components/GoogleSignInButton';
 import { MdPerson, MdEmail, MdPhone, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { useNotification } from '../components/notificationContext';
 import logo from '../../assets/logo.png';
+
 const Register = () => {
   const [formData, setFormData] = useState({
     full_name: '',
