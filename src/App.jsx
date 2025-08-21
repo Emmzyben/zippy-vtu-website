@@ -65,7 +65,7 @@ function AppRoutes() {
         <Route
           index
           element={
-            isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/" />
+            isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/landing" />
           }
         />
 
