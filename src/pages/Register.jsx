@@ -4,8 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import GoogleSignInButton from '../components/GoogleSignInButton';
 import { MdPerson, MdEmail, MdPhone, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import { useNotification } from '../components/notificationContext';
 import bg from '../../assets/bg.png';
+import { useNotification } from '../components/notificationContext';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -17,12 +17,12 @@ const Register = () => {
     referral_code: ''
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const { showNotification } = useNotification();
   const { register } = useAuth();
   const navigate = useNavigate();
-  const { showNotification } = useNotification();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,8 +31,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
     if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
       showNotification({ type: 'error', message: 'Passwords do not match' });
       setLoading(false);
       return;
@@ -48,9 +50,10 @@ const Register = () => {
       };
 
       await register(userData);
-      showNotification({ type: 'success', message: 'Registration successful! Welcome to Zippy Pay.' });
-      navigate('/home');
+      showNotification({ type: 'success', message: 'Registration successful! Welcome aboard.' });
+      navigate('/');
     } catch (err) {
+      setError(err.message);
       showNotification({ type: 'error', message: err.message });
     } finally {
       setLoading(false);
@@ -64,7 +67,7 @@ const Register = () => {
          <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
         <div className="text-center mb-6">
           <img
-            src={bg} 
+            src={bg}
             alt="Zippy Pay Logo"
             className="h-30 w-30 mx-auto rounded-full object-cover shadow"
           />
