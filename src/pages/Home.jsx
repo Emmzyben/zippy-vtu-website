@@ -14,7 +14,7 @@ const Home = () => {
     <div className="p-4 lg:p-6">
       <div className="container mx-auto">
         <div className="mb-6">
-          <h1 className="text-1xl lg:text-2xl font-bold text-neutral-800 mb-1">
+         <h1 className="text-xl font-bold text-neutral-800 mb-2">
            Hello, {user?.full_name?.split(' ')[0]}!
           </h1>
         </div>

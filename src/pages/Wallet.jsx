@@ -82,7 +82,7 @@ const Wallet = () => {
     <div className="p-4 lg:p-6">
       <div className="container mx-auto max-w-2xl">
         <div className="mb-4 bg-white p-2 rounded-lg shadow">
-          <h1 className="text-1xl lg:text-2xl font-bold text-neutral-800 mb-2">
+          <h1 className="text-lg font-bold text-neutral-800 mb-2">
            Wallet
           </h1>
        
