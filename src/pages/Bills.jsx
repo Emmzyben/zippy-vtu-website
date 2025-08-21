@@ -104,13 +104,11 @@ const Bills = () => {
   return (
     <div className="p-4 lg:p-6">
       <div className="container mx-auto max-w-2xl">
-        <div className="mb-6">
-          <h1 className="text-2xl lg:text-3xl font-bold text-neutral-800 mb-2">
-            Pay Bills
+        <div className="mb-4 bg-white p-2 rounded-lg shadow">
+          <h1 className="text-1xl lg:text-2xl font-bold text-neutral-800 mb-2">
+           Pay Bills
           </h1>
-          <p className="text-neutral-600">
-            Pay your electricity, cable TV, internet, and water bills
-          </p>
+       
         </div>
 
         <div className="card mb-6 bg-[#5C2D91] text-[#fff] p-2 rounded">
