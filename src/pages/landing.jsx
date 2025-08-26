@@ -152,7 +152,7 @@ const Landing = () => {
             </h1>
             
             <p className="text-xl text-white/90 leading-relaxed">
-              Top up airtime, buy data, pay bills, and manage your wallet with Nigeria's most trusted payment platform. Join thousands of satisfied users today!
+              Top up airtime, buy data, pay bills, Buy crypto and manage your wallet with Nigeria's most trusted payment platform. Join thousands of satisfied users today!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -222,47 +222,47 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" ref={featuresRef} className="py-20 bg-white/5 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className={`text-center mb-16 ${visibleSections.has('features') ? 'animate-fade-in' : 'opacity-0'}`}>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Everything You Need in 
-              <span className="bg-gradient-to-r from-amber-400 to-white bg-clip-text text-transparent"> One Platform</span>
-            </h2>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              Streamline your digital payments with our comprehensive suite of financial services
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: <Smartphone size={40} />, title: 'Airtime & Data', desc: 'Instantly top up airtime and purchase data bundles for all major networks. Fast, reliable, and always available 24/7.' },
-              { icon: <Zap size={40} />, title: 'Bill Payments', desc: 'Pay electricity bills, cable TV subscriptions, and internet services with just a few taps. Never miss a payment again.' },
-              { icon: <Shield size={40} />, title: 'Secure Wallet', desc: 'Fund your wallet with multiple payment options including bank transfer, card payments, and USSD. Your money is always safe.' },
-              { icon: <BarChart3 size={40} />, title: 'Transaction History', desc: 'Keep track of all your payments and transactions with detailed history and receipts. Complete transparency.' },
-              { icon: <Gift size={40} />, title: 'Referral Rewards', desc: 'Earn money by inviting friends! Get rewarded for every successful referral and build your passive income.' },
-              { icon: <Shield size={40} />, title: 'Bank-Level Security', desc: 'Your data and money are protected with enterprise-grade security, encryption, and fraud prevention systems.' }
-            ].map((feature, index) => (
-              <div 
-                key={index} 
-                className={`bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl border border-white/20 ${
-                  visibleSections.has('features') ? 'animate-slide-up' : 'opacity-0'
-                }`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="bg-gradient-to-br from-amber-500 to-amber-600 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-white">
-                  {feature.icon}
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-amber-400">{feature.title}</h3>
-                <p className="text-white/80 leading-relaxed">{feature.desc}</p>
+      /* Features Section */
+        <section id="features" ref={featuresRef} className="py-20 bg-white/5 backdrop-blur-sm">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className={`text-center mb-16 ${visibleSections.has('features') ? 'animate-fade-in' : 'opacity-0'}`}>
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            Everything You Need in 
+            <span className="bg-gradient-to-r from-amber-400 to-white bg-clip-text text-transparent"> One Platform</span>
+          </h2>
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            Streamline your digital payments and crypto transactions with our comprehensive suite of financial services.
+          </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            { icon: <Smartphone size={40} />, title: 'Airtime & Data', desc: 'Instantly top up airtime and purchase data bundles for all major networks. Fast, reliable, and always available 24/7.' },
+            { icon: <Zap size={40} />, title: 'Bill Payments', desc: 'Pay electricity bills, cable TV subscriptions, and internet services with just a few taps. Never miss a payment again.' },
+            { icon: <BarChart3 size={40} />, title: 'Crypto Buy & Sell', desc: 'Buy and sell cryptocurrencies securely. Enjoy fast transactions, competitive rates, and instant wallet funding.' },
+            { icon: <Shield size={40} />, title: 'Secure Wallet', desc: 'Fund your wallet with multiple payment options including bank transfer, card payments, and USSD. Your money and crypto are always safe.' },
+            { icon: <Gift size={40} />, title: 'Referral Rewards', desc: 'Earn money by inviting friends! Get rewarded for every successful referral and build your passive income.' },
+            { icon: <Shield size={40} />, title: 'Bank-Level Security', desc: 'Your data, money, and crypto are protected with enterprise-grade security, encryption, and fraud prevention systems.' }
+          ].map((feature, index) => (
+            <div 
+              key={index} 
+              className={`bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl border border-white/20 ${
+            visibleSections.has('features') ? 'animate-slide-up' : 'opacity-0'
+              }`}
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="bg-gradient-to-br from-amber-500 to-amber-600 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-white">
+            {feature.icon}
               </div>
-            ))}
+              <h3 className="text-2xl font-bold mb-4 text-amber-400">{feature.title}</h3>
+              <p className="text-white/80 leading-relaxed">{feature.desc}</p>
+            </div>
+          ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Referral Section */}
+        {/* Referral Section */}
       <section id="referrals" ref={referralRef} className="py-20">
         <div className="max-w-4xl mx-auto px-4">
           <div className={`bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 ${
@@ -353,11 +353,18 @@ const Landing = () => {
             <div>
               <h4 className="text-xl font-bold text-amber-400 mb-6">Company</h4>
               <div className="space-y-3">
-                {['Contact Us', 'FAQs', 'Privacy Policy', 'Terms of Service'].map(item => (
-                  <button key={item} className="block text-white/80 hover:text-white transition-colors text-left">
-                    {item}
-                  </button>
-                ))}
+                <Link to="/contact" className="block text-white/80 hover:text-white transition-colors text-left">
+                  Contact Us
+                </Link>
+                <Link to="/faq" className="block text-white/80 hover:text-white transition-colors text-left">
+                  FAQs
+                </Link>
+                <Link to="/privacy" className="block text-white/80 hover:text-white transition-colors text-left">
+                  Privacy Policy
+                </Link>
+                <Link to="/terms" className="block text-white/80 hover:text-white transition-colors text-left">
+                  Terms of Service
+                </Link>
               </div>
             </div>
             

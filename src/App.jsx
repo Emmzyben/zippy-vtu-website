@@ -18,6 +18,12 @@ import Transactions from './pages/Transactions';
 import Referral from './pages/Referral';
 import Profile from './pages/Profile';
 
+// Additional Pages
+import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
@@ -107,6 +113,28 @@ function AppRoutes() {
     <ProtectedRoute>
       <Profile />
     </ProtectedRoute>
+  } />
+
+  {/* Additional Public Pages */}
+  <Route path="/contact" element={
+    <PublicRoute>
+      <Contact />
+    </PublicRoute>
+  } />
+  <Route path="/faq" element={
+    <PublicRoute>
+      <FAQ />
+    </PublicRoute>
+  } />
+  <Route path="/privacy" element={
+    <PublicRoute>
+      <Privacy />
+    </PublicRoute>
+  } />
+  <Route path="/terms" element={
+    <PublicRoute>
+      <Terms />
+    </PublicRoute>
   } />
 </Route>
 

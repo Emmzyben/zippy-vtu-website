@@ -7,8 +7,8 @@ const Layout = () => {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
 
-  // Paths where MobileNavigation should be hidden
-  const hideMobileNavPaths = ['/login', '/register', '/'];
+  // Paths where MobileNavigation should be hidden 
+  const hideMobileNavPaths = ['/login', '/register', '/', '/faq', '/contact' ,'/terms', '/privacy'];
 
   const shouldShowMobileNav = !hideMobileNavPaths.includes(location.pathname);
 
