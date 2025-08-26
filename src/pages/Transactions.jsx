@@ -63,15 +63,12 @@ const Transactions = () => {
   return (
     <div className="p-4 lg:p-6">
       <div className="container mx-auto">
-        <div className="mb-6">
-          <h1 className="text-2xl lg:text-3xl font-bold text-neutral-800 mb-2">
+        <div className="mb-4 bg-white p-2 rounded-lg shadow">
+         <h1 className="text-lg font-bold text-neutral-800 mb-2">
             Transaction History
           </h1>
-          <p className="text-neutral-600">
-            View and manage all your transactions
-          </p>
+       
         </div>
-
         {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 bg-[#5C2D91] p-2 rounded">
           <div className="card text-center">

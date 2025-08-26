@@ -222,7 +222,7 @@ const Landing = () => {
         </div>
       </section>
 
-      /* Features Section */
+      
         <section id="features" ref={featuresRef} className="py-20 bg-white/5 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto px-4">
             <div className={`text-center mb-16 ${visibleSections.has('features') ? 'animate-fade-in' : 'opacity-0'}`}>

@@ -31,7 +31,7 @@ const Navigation = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto p-4">
-        <div className="mb-6 rounded-lg bg-[#5C2D91] p-4 text-white">
+        <div className="mb-6 rounded-lg bg-gradient-to-br from-amber-600 via-purple-800 to-purple-900 p-4 text-white">
           <p className="text-sm opacity-90">Welcome back,</p>
           <p className="font-semibold">{user?.full_name || 'User'}</p>
         </div>
