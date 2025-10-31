@@ -6,6 +6,8 @@ export const vtuService = {
       const response = await api.post('/vtu/airtime', data);
       return response.data;
     } catch (error) {
+
+      console.error("Airtime purchase error:", error);
       throw new Error(error.response?.data?.message || 'Airtime purchase failed');
     }
   },
@@ -28,21 +30,24 @@ export const vtuService = {
     }
   },
 
-  async getDataPlans(network) {
+
+
+  // ✅ NEW METHODS FOR DYNAMIC SERVICES
+  async getServices() {
     try {
-      const response = await api.get(`/vtu/data-plans/${network}`);
-      return response.data.plans;
+      const response = await api.get('/vtu/services'); // backend endpoint
+      return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to get data plans');
+      throw new Error(error.response?.data?.message || 'Failed to fetch services');
     }
   },
 
-  async getBillProviders(type) {
+  async getVariations(serviceID) {
     try {
-      const response = await api.get(`/vtu/bill-providers/${type}`);
-      return response.data.providers;
+      const response = await api.get(`/vtu/variations/${serviceID}`); // backend endpoint
+      return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to get providers');
+      throw new Error(error.response?.data?.message || 'Failed to fetch service variations');
     }
   }
 };

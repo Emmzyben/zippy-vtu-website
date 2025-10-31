@@ -15,8 +15,13 @@ import Data from './pages/Data';
 import Bills from './pages/Bills';
 import Wallet from './pages/Wallet';
 import Transactions from './pages/Transactions';
+import TransactionDetails from './pages/TransactionDetails';
 import Referral from './pages/Referral';
 import Profile from './pages/Profile';
+import FAQ from './pages/FAQ';
+import Contact from './pages/Contact';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 import { NotificationProvider } from './components/notificationContext';
 
 const ProtectedRoute = ({ children }) => {
@@ -141,6 +146,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <Transactions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/transactions/:id"
+          element={
+            <ProtectedRoute>
+              <TransactionDetails />
             </ProtectedRoute>
           }
         />

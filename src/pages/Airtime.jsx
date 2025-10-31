@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { vtuService } from '../services/vtuService';
 import NetworkSelector from '../components/NetworkSelector';
+import BeneficiarySelector from '../components/BeneficiarySelector';
 import LoadingSpinner from '../components/LoadingSpinner';
+import NotificationModal from '../components/NotificationModal';
 
 const Airtime = () => {
   const [formData, setFormData] = useState({
@@ -11,173 +13,245 @@ const Airtime = () => {
     amount: ''
   });
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    type: 'success',
+    title: '',
+    message: ''
+  });
 
-  const { balance, processTransaction } = useWallet();
-
-  const networks = [
-    { code: 'mtn', name: 'MTN', logo: 'https://i.ibb.co/C3tdr1Z4/mtn.png' },
-    { code: 'glo', name: 'Glo', logo: 'https://i.ibb.co/mFrFmfPT/glo.jpg' },
-    { code: 'airtel', name: 'Airtel', logo: 'https://i.ibb.co/Wv8t0NGk/airtel.png' },
-    { code: '9mobile', name: '9mobile', logo: 'https://i.ibb.co/Sw5Rc7KY/9mobile.png' }
-  ];
+  const { balance, deductFromWallet, addTransaction } = useWallet();
   const quickAmounts = [100, 200, 500, 1000, 2000, 5000];
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleNetworkChange = (network) => setFormData({ ...formData, network });
+  const handleQuickAmount = (amount) => setFormData({ ...formData, amount: amount.toString() });
 
-  const handleNetworkChange = (network) => {
-    setFormData({
-      ...formData,
-      network
-    });
-  };
+  const formatBalance = (amount) =>
+    new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(amount);
 
-  const handleQuickAmount = (amount) => {
-    setFormData({
-      ...formData,
-      amount: amount.toString()
-    });
+  const validatePhoneNumber = (phone) => {
+    const phoneRegex = /^(\+234|0)[789][01]\d{8}$/;
+    return phoneRegex.test(phone);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-    setSuccess('');
+
+    // Client-side validation
+    if (!formData.network) {
+      setModalState({
+        isOpen: true,
+        type: 'error',
+        title: 'Validation Error',
+        message: 'Please select a network.',
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.phone || !validatePhoneNumber(formData.phone)) {
+      setModalState({
+        isOpen: true,
+        type: 'error',
+        title: 'Invalid Phone Number',
+        message: 'Please enter a valid Nigerian phone number (11 digits).',
+      });
+      setLoading(false);
+      return;
+    }
+
+    const amount = parseFloat(formData.amount);
+    if (isNaN(amount) || amount < 50 || amount > 50000) {
+      setModalState({
+        isOpen: true,
+        type: 'error',
+        title: 'Invalid Amount',
+        message: 'Amount must be between ₦50 and ₦50,000.',
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (amount > balance) {
+      setModalState({
+        isOpen: true,
+        type: 'error',
+        title: 'Insufficient Balance',
+        message: 'Insufficient wallet balance.',
+      });
+      setLoading(false);
+      return;
+    }
 
     try {
-      const amount = parseFloat(formData.amount);
-      
-      if (amount > balance) {
-        throw new Error('Insufficient wallet balance');
-      }
 
-      await processTransaction({
-        type: 'airtime',
+      const response = await vtuService.buyAirtime({
+        network: formData.network,
+        phone: formData.phone,
         amount,
-        details: {
-          network: formData.network,
-          phone: formData.phone
-        }
       });
 
-      setSuccess('Airtime purchase successful!');
-      setFormData({ network: '', phone: '', amount: '' });
+      if (response.status === 'success') {
+        deductFromWallet(amount);
+        const transaction = {
+          id: response.data?.requestId || Date.now().toString(),
+          type: 'airtime',
+          amount: -amount,
+          description: `${formData.network.toUpperCase()} Airtime Purchase - ${formData.phone}`,
+          date: new Date().toISOString(),
+          status: 'completed',
+          network: formData.network,
+          phone: formData.phone,
+        };
+        addTransaction(transaction);
+
+        setModalState({
+          isOpen: true,
+          type: 'success',
+          title: 'Purchase Successful',
+          message: `${formData.network.toUpperCase()} airtime purchase successful!`,
+        });
+        setFormData({ network: '', phone: '', amount: '' });
+      } else if (response.status === 'pending') {
+        // Transaction recorded as pending in backend
+        const transaction = {
+          id: response.data?.requestId || Date.now().toString(),
+          type: 'airtime',
+          amount: -amount,
+          description: `${formData.network.toUpperCase()} Airtime Purchase - ${formData.phone}`,
+          date: new Date().toISOString(),
+          status: 'pending',
+          network: formData.network,
+          phone: formData.phone,
+        };
+        addTransaction(transaction);
+        setModalState({
+          isOpen: true,
+          type: 'warning',
+          title: 'Transaction Pending',
+          message: 'Transaction is pending. Please wait for confirmation.',
+        });
+        setFormData({ network: '', phone: '', amount: '' });
+      } else {
+        // Transaction recorded as failed in backend
+        const transaction = {
+          id: response.data?.requestId || Date.now().toString(),
+          type: 'airtime',
+          amount: -amount,
+          description: `${formData.network.toUpperCase()} Airtime Purchase - ${formData.phone}`,
+          date: new Date().toISOString(),
+          status: 'failed',
+          network: formData.network,
+          phone: formData.phone,
+        };
+        addTransaction(transaction);
+        throw new Error('Airtime purchase failed, please try again.');
+      }
     } catch (err) {
-      setError(err.message);
+      setModalState({
+        isOpen: true,
+        type: 'error',
+        title: 'Purchase Failed',
+        message: err.message,
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  const formatBalance = (amount) => {
-    return new Intl.NumberFormat('en-NG', {
-      style: 'currency',
-      currency: 'NGN'
-    }).format(amount);
-  };
-
   return (
-    <div className="p-4 lg:p-6">
+    <div className="p-4 lg:p-6 bg-gradient-to-br from-white to-purple-50 min-h-screen">
       <div className="container mx-auto max-w-2xl">
-        <div className="mb-4 bg-white p-2 rounded-lg shadow">
-         <h1 className="text-lg font-bold text-neutral-800 mb-2">
-            Buy Airtime
-          </h1>
-       
+        {/* Header */}
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-neutral-800">Buy Airtime</h1>
+          <span className="text-sm text-neutral-500">Instant Top-up</span>
         </div>
 
-          <div className="card mb-6 bg-[#5C2D91] text-[#fff] p-2 rounded-lg">
-          <div className="flex items-center justify-between">
-            <span className="text-white-600">Wallet Balance</span>
-            <span className="text-xl font-semibold text-primary">
-              {formatBalance(balance)}
-            </span>
-          </div>
+        {/* Wallet Balance Card */}
+        <div className="mb-6 bg-gradient-to-r from-[#5C2D91] to-purple-600 text-white p-4 rounded-2xl shadow-md flex justify-between items-center">
+          <span className="text-sm opacity-90">Wallet Balance</span>
+          <span className="text-2xl font-semibold">{formatBalance(balance)}</span>
         </div>
 
-        <div className="card">
+        {/* Airtime Form Card */}
+        <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 transition-all duration-200 hover:shadow-lg">
           <form onSubmit={handleSubmit}>
-            {error && (
-              <div className="alert alert-error mb-4">
-                {error}
-              </div>
-            )}
-
-            {success && (
-              <div className="alert alert-success mb-4">
-                {success}
-              </div>
-            )}
-
+            {/* Network Selector */}
             <NetworkSelector
               value={formData.network}
               onChange={handleNetworkChange}
-              networks={networks}
+              networks={['mtn', 'glo', 'airtel', 'etisalat']}
             />
 
-           <div className="form-group mt-4 mb-4">
-              <label htmlFor="phone" className="form-label">
-               Enter phone number or  <button className=' text-[#FF8C00] font-semibold'>Select from beneficiaries</button>
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
+            {/* Phone Number */}
+            <div className="mt-5">
+              <BeneficiarySelector
+                selectedNetwork={formData.network}
                 value={formData.phone}
-                onChange={handleChange}
-              className="form-input border border-neutral-300 p-2 mb-2 w-full rounded-lg focus:bg-[#dae2f0ff]"
-                placeholder="08012345678"
-                required
+                onSelect={(beneficiary) => setFormData({ ...formData, phone: beneficiary.phone_number })}
+                onAdd={() => setModalState({
+                  isOpen: true,
+                  type: 'success',
+                  title: 'Success',
+                  message: 'Beneficiary added successfully!',
+                })}
               />
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Amount</label>
-              <div className="grid grid-cols-3 gap-2 mb-3">
+            {/* Quick Amount Buttons */}
+            <div className="mt-5">
+              <label className="block text-sm font-medium text-neutral-700 mb-2">Amount</label>
+              <div className="grid grid-cols-3 gap-3 mb-3">
                 {quickAmounts.map((amount) => (
                   <button
                     key={amount}
                     type="button"
                     onClick={() => handleQuickAmount(amount)}
-                    className={`py-2 px-4 rounded-lg border transition-colors ${
+                    className={`py-2 px-4 rounded-lg border text-sm font-medium transition-all ${
                       formData.amount === amount.toString()
-                       ? 'border-[#5C2D91] bg-[#5C2D91] text-white'
-                            : 'border-neutral-200 hover:border-[#5C2D91]'
+                        ? 'bg-[#5C2D91] text-white border-[#5C2D91] shadow-md'
+                        : 'border-gray-200 hover:border-[#5C2D91] hover:bg-purple-50'
                     }`}
                   >
                     ₦{amount}
                   </button>
                 ))}
               </div>
+
               <input
                 type="number"
                 name="amount"
                 value={formData.amount}
                 onChange={handleChange}
-                 className="form-input border border-neutral-300 p-2 mb-2 w-full rounded-lg focus:bg-[#dae2f0ff]"
-                placeholder="Enter amount"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#5C2D91] transition"
+                placeholder="Enter custom amount"
                 min="50"
                 required
               />
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading || !formData.network || !formData.phone || !formData.amount}
-                    className="w-full bg-[#5C2D91] text-white font-semibold py-3 rounded-lg hover:bg-[#FF8C00]  flex justify-center items-center transition"
-             
+              className="w-full mt-6 bg-[#5C2D91] text-white font-semibold py-3 rounded-lg hover:bg-[#4A1F7C] transition-all shadow-md hover:shadow-lg flex justify-center items-center"
             >
               {loading ? <LoadingSpinner size="sm" /> : 'Buy Airtime'}
             </button>
           </form>
         </div>
+
+        {/* Notification Modal */}
+        <NotificationModal
+          isOpen={modalState.isOpen}
+          onClose={() => setModalState({ ...modalState, isOpen: false })}
+          type={modalState.type}
+          title={modalState.title}
+          message={modalState.message}
+        />
       </div>
     </div>
   );

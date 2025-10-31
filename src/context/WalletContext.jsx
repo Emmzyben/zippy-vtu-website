@@ -88,10 +88,20 @@ export const WalletProvider = ({ children }) => {
     }
   };
 
+  const deductFromWallet = (amount) => {
+    dispatch({ type: 'UPDATE_BALANCE', payload: -amount });
+  };
+
+  const addTransaction = (transaction) => {
+    dispatch({ type: 'ADD_TRANSACTION', payload: transaction });
+  };
+
   const value = {
     ...state,
     fundWallet,
     processTransaction,
+    deductFromWallet,
+    addTransaction,
     refreshWallet: fetchWalletData
   };
 

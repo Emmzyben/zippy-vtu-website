@@ -18,39 +18,46 @@ const Navigation = () => {
     { path: '/transactions', icon: History, label: 'History' },
     { path: '/referral', icon: Users, label: 'Referral' },
     { path: '/profile', icon: User, label: 'Profile' },
-  ];          
+  ];
 
   return (
-    <nav className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col lg:bg-white lg:shadow">
-      <div className="flex h-16 items-center justify-center ">
+    <nav className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col bg-white border-r border-gray-200 shadow-sm">
+      {/* Logo Section */}
+      <div className="flex h-20 items-center justify-center border-b border-gray-100">
         <img
-          src="../../src/assets/logo.jpeg"
+          src="../../assets/bg.png"
           alt="Zippy Pay Logo"
-          className="h-50 w-50 rounded-full"
+          className="h-20 w-40 rounded-full object-cover"
         />
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4">
-        <div className="mb-6 rounded-lg bg-gradient-to-br from-amber-600 via-purple-800 to-purple-900 p-4 text-white">
-          <p className="text-sm opacity-90">Welcome back,</p>
-          <p className="font-semibold">{user?.full_name || 'User'}</p>
+      {/* User Section */}
+      <div className="p-4">
+        <div className="rounded-2xl bg-[#5C2D91]/10 border border-[#5C2D91]/20 p-4 text-[#5C2D91] shadow-sm">
+          <p className="text-sm opacity-80">Welcome back,</p>
+          <p className="font-semibold text-lg">
+            {user?.full_name || 'User'}
+          </p>
         </div>
+      </div>
 
-        <ul className="space-y-2">
+      {/* Navigation Links */}
+      <div className="flex-1 overflow-y-auto px-4">
+        <ul className="space-y-1">
           {navItems.map(({ path, icon: Icon, label }) => {
             const isActive = location.pathname === path;
             return (
               <li key={path}>
                 <Link
                   to={path}
-                  className={`flex items-center gap-3 rounded-lg px-4 py-3 transition ${
+                  className={`flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
                     isActive
-                      ? 'bg-[#5C2D91] text-white shadow'
-                      : 'text-neutral-600 hover:bg-neutral-100 hover:text-[#F59E0B]'
+                      ? 'bg-[#5C2D91] text-white shadow-md'
+                      : 'text-neutral-600 hover:text-[#5C2D91] hover:bg-[#5C2D91]/10'
                   }`}
                 >
                   <Icon size={20} />
-                  <span className="font-medium">{label}</span>
+                  <span>{label}</span>
                 </Link>
               </li>
             );
@@ -58,14 +65,16 @@ const Navigation = () => {
         </ul>
       </div>
 
-      <div className="border-t border-neutral-200 p-4"></div>
-      <button
-        onClick={logout}
-        className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-neutral-600 transition hover:bg-red-50 hover:text-red-600"
-      >
-        <LogOut size={20} />
-        <span className="font-medium">Sign Out</span>
-      </button>
+      {/* Footer / Logout */}
+      <div className="border-t border-gray-100 p-4">
+        <button
+          onClick={logout}
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-neutral-600 hover:text-red-600 hover:bg-red-50 transition-all duration-200"
+        >
+          <LogOut size={20} />
+          <span className="font-medium">Sign Out</span>
+        </button>
+      </div>
     </nav>
   );
 };

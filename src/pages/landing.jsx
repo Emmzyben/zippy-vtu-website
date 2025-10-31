@@ -237,9 +237,9 @@ const Landing = () => {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
+               { icon: <BarChart3 size={40} />, title: 'Crypto Buy & Sell', desc: 'Buy and sell cryptocurrencies securely. Enjoy fast transactions, competitive rates, and instant wallet funding.' },
             { icon: <Smartphone size={40} />, title: 'Airtime & Data', desc: 'Instantly top up airtime and purchase data bundles for all major networks. Fast, reliable, and always available 24/7.' },
             { icon: <Zap size={40} />, title: 'Bill Payments', desc: 'Pay electricity bills, cable TV subscriptions, and internet services with just a few taps. Never miss a payment again.' },
-            { icon: <BarChart3 size={40} />, title: 'Crypto Buy & Sell', desc: 'Buy and sell cryptocurrencies securely. Enjoy fast transactions, competitive rates, and instant wallet funding.' },
             { icon: <Shield size={40} />, title: 'Secure Wallet', desc: 'Fund your wallet with multiple payment options including bank transfer, card payments, and USSD. Your money and crypto are always safe.' },
             { icon: <Gift size={40} />, title: 'Referral Rewards', desc: 'Earn money by inviting friends! Get rewarded for every successful referral and build your passive income.' },
             { icon: <Shield size={40} />, title: 'Bank-Level Security', desc: 'Your data, money, and crypto are protected with enterprise-grade security, encryption, and fraud prevention systems.' }

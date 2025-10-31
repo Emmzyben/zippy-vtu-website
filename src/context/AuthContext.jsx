@@ -36,12 +36,25 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        try {
+          const user = JSON.parse(storedUser);
+          dispatch({ type: 'SET_USER', payload: user });
+        } catch (e) {
+          localStorage.removeItem('user');
+        }
+      }
       authService.getCurrentUser()
         .then(user => {
           dispatch({ type: 'SET_USER', payload: user });
+          localStorage.setItem('user', JSON.stringify(user));
         })
         .catch(() => {
-          localStorage.removeItem('token');
+          if (!storedUser) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+          }
           dispatch({ type: 'SET_LOADING', payload: false });
         });
     } else {
@@ -54,6 +67,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await authService.login(email, password);
       localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
       dispatch({ type: 'SET_USER', payload: response.user });
       return response;
     } catch (error) {
@@ -67,6 +81,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await authService.register(userData);
       localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
       dispatch({ type: 'SET_USER', payload: response.user });
       return response;
     } catch (error) {
@@ -80,6 +95,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await authService.googleAuth(credential, referralCode);
       localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
       dispatch({ type: 'SET_USER', payload: response.user });
       return response;
     } catch (error) {
@@ -89,6 +105,7 @@ export const AuthProvider = ({ children }) => {
   };
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     dispatch({ type: 'LOGOUT' });
   };
 
