@@ -2,10 +2,10 @@
 import React from 'react';
 
 const networks = [
-  { id: 'mtn', name: 'MTN', logo: '../../assets/MTN.jpg' },
-  { id: 'glo', name: 'Glo', logo: '../../assets/glo.jpg' },
-  { id: 'airtel', name: 'Airtel', logo: '../../assets/airtel.png' },
-  { id: 'etisalat', name: '9mobile', logo: '../../assets/9mobile.jpeg' },
+  { id: 'mtn', name: 'MTN', logo: '/assets/MTN.jpg' },
+  { id: 'glo', name: 'Glo', logo: '/assets/glo.jpg' },
+  { id: 'airtel', name: 'Airtel', logo: '/assets/airtel.png' },
+  { id: 'etisalat', name: '9mobile', logo: '/assets/9mobile.jpeg' },
 ];
 
 const NetworkSelector = ({ value, onChange }) => {

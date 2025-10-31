@@ -183,7 +183,6 @@ const Airtime = () => {
             <NetworkSelector
               value={formData.network}
               onChange={handleNetworkChange}
-              networks={['mtn', 'glo', 'airtel', 'etisalat']}
             />
 
             {/* Phone Number */}

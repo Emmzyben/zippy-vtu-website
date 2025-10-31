@@ -26,10 +26,10 @@ const Data = () => {
   const { balance } = useWallet();
 
   const networks = [
-    { code: 'mtn', name: 'MTN', logo: 'https://i.ibb.co/C3tdr1Z4/mtn.png' },
-    { code: 'glo', name: 'Glo', logo: 'https://i.ibb.co/mFrFmfPT/glo.jpg' },
-    { code: 'airtel', name: 'Airtel', logo: 'https://i.ibb.co/Wv8t0NGk/airtel.png' },
-    { code: 'etisalat', name: '9mobile', logo: 'https://i.ibb.co/Sw5Rc7KY/9mobile.png' },
+    { code: 'mtn', name: 'MTN', logo: '/assets/MTN.jpg' },
+    { code: 'glo', name: 'Glo', logo: '/assets/glo.jpg' },
+    { code: 'airtel', name: 'Airtel', logo: '/assets/airtel.png' },
+    { code: 'etisalat', name: '9mobile', logo: '/assets/9mobile.jpeg' },
   ];
 
   useEffect(() => {
