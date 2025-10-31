@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const isLocal = window.location.hostname === "localhost"; 
+// const isLocal = window.location.hostname === "localhost"; 
 
-const API_BASE_URL = isLocal
-  ? "http://localhost:5000" 
-  : "https://zippy-vtu.onrender.com"; 
+// const API_BASE_URL = isLocal
+//   ? "http://localhost:5000" 
+//   : "https://zippy-vtu.onrender.com"; 
 
-// const API_BASE_URL =  "http://localhost:5000" ;
+const API_BASE_URL =  "https://zippy-vtu.onrender.com" ;
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/api`,
