@@ -20,7 +20,7 @@ const Airtime = () => {
     message: ''
   });
 
-  const { balance, deductFromWallet, addTransaction } = useWallet();
+  const { balance, refreshWallet } = useWallet();
   const quickAmounts = [100, 200, 500, 1000, 2000, 5000];
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -94,19 +94,7 @@ const Airtime = () => {
       });
 
       if (response.status === 'success') {
-        deductFromWallet(amount);
-        const transaction = {
-          id: response.data?.requestId || Date.now().toString(),
-          type: 'airtime',
-          amount: -amount,
-          description: `${formData.network.toUpperCase()} Airtime Purchase - ${formData.phone}`,
-          date: new Date().toISOString(),
-          status: 'completed',
-          network: formData.network,
-          phone: formData.phone,
-        };
-        addTransaction(transaction);
-
+        await refreshWallet();
         setModalState({
           isOpen: true,
           type: 'success',
@@ -115,18 +103,7 @@ const Airtime = () => {
         });
         setFormData({ network: '', phone: '', amount: '' });
       } else if (response.status === 'pending') {
-        // Transaction recorded as pending in backend
-        const transaction = {
-          id: response.data?.requestId || Date.now().toString(),
-          type: 'airtime',
-          amount: -amount,
-          description: `${formData.network.toUpperCase()} Airtime Purchase - ${formData.phone}`,
-          date: new Date().toISOString(),
-          status: 'pending',
-          network: formData.network,
-          phone: formData.phone,
-        };
-        addTransaction(transaction);
+        await refreshWallet();
         setModalState({
           isOpen: true,
           type: 'warning',
@@ -135,18 +112,7 @@ const Airtime = () => {
         });
         setFormData({ network: '', phone: '', amount: '' });
       } else {
-        // Transaction recorded as failed in backend
-        const transaction = {
-          id: response.data?.requestId || Date.now().toString(),
-          type: 'airtime',
-          amount: -amount,
-          description: `${formData.network.toUpperCase()} Airtime Purchase - ${formData.phone}`,
-          date: new Date().toISOString(),
-          status: 'failed',
-          network: formData.network,
-          phone: formData.phone,
-        };
-        addTransaction(transaction);
+        await refreshWallet();
         throw new Error('Airtime purchase failed, please try again.');
       }
     } catch (err) {

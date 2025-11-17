@@ -23,7 +23,7 @@ const Data = () => {
     message: ''
   });
 
-  const { balance } = useWallet();
+  const { balance, refreshWallet } = useWallet();
 
   const networks = [
     { code: 'mtn', name: 'MTN', logo: '/assets/MTN.jpg' },
@@ -174,6 +174,7 @@ const Data = () => {
       });
 
       if (response.success) {
+        await refreshWallet();
         setModalState({
           isOpen: true,
           type: 'success',
@@ -182,6 +183,7 @@ const Data = () => {
         });
         setFormData({ network: '', phone: '', variation_code: '', amount: 0 });
       } else if (response.status === 'pending') {
+        await refreshWallet();
         setModalState({
           isOpen: true,
           type: 'warning',
@@ -190,6 +192,7 @@ const Data = () => {
         });
         setFormData({ network: '', phone: '', variation_code: '', amount: 0 });
       } else {
+        await refreshWallet();
         throw new Error(response.error || 'Data purchase failed');
       }
     } catch (err) {

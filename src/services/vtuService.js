@@ -30,7 +30,23 @@ export const vtuService = {
     }
   },
 
+  async verifySmartcard(data) {
+    try {
+      const response = await api.post('/vtu/verify-smartcard', data);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Smartcard verification failed');
+    }
+  },
 
+  async verifyMeter(data) {
+    try {
+      const response = await api.post('/vtu/verify-meter', data);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Meter verification failed');
+    }
+  },
 
   // ✅ NEW METHODS FOR DYNAMIC SERVICES
   async getServices() {

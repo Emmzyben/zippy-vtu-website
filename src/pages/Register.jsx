@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner';
-import GoogleSignInButton from '../components/GoogleSignInButton';
+
 import { MdPerson, MdEmail, MdPhone, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import bg from '../../assets/bg.png';
 import { useNotification } from '../components/notificationContext';
@@ -13,8 +13,7 @@ const Register = () => {
     email: '',
     phone: '',
     password: '',
-    confirmPassword: '',
-    referral_code: ''
+    confirmPassword: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -45,13 +44,12 @@ const Register = () => {
         full_name: formData.full_name,
         email: formData.email,
         phone: formData.phone,
-        password: formData.password,
-        referral_code: formData.referral_code
+        password: formData.password
       };
 
-      await register(userData);
+      const response = await register(userData);
       showNotification({ type: 'success', message: 'Registration successful! Welcome aboard.' });
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       setError(err.message);
       showNotification({ type: 'error', message: err.message });
@@ -196,21 +194,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Referral Code */}
-          <div>
-            <label htmlFor="referral_code" className="block text-gray-700 font-semibold mb-1">
-              Referral Code (Optional)
-            </label>
-            <input
-              type="text"
-              id="referral_code"
-              name="referral_code"
-              value={formData.referral_code}
-              onChange={handleChange}
-              placeholder="Enter referral code"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5C2D91]"
-            />
-          </div>
+
 
           {/* Submit */}
           <button 
@@ -221,19 +205,7 @@ const Register = () => {
             {loading ? <LoadingSpinner size="sm" /> : 'Create Account'}
           </button>
 
-          {/* Divider */}
-          <div className="flex items-center">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="mx-2 text-gray-500 text-sm">Or</span>
-            <div className="flex-grow border-t border-gray-300"></div>
-          </div>
 
-          {/* Google */}
-          <GoogleSignInButton 
-            referralCode={formData.referral_code}
-            onSuccess={() => navigate('/home')}
-            onError={(err) => setError(err)}
-          />
 
           {/* Login Link */}
           <p className="text-center text-sm text-gray-600 mt-4">

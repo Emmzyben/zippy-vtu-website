@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Smartphone, Zap, Shield, DollarSign, BarChart3, Gift, ArrowRight, Users, TrendingUp, Clock, Star } from 'lucide-react';
+import { Menu, X, Smartphone, Zap, Shield, BarChart3, ArrowRight, Users, TrendingUp, Clock } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Landing = () => {
@@ -8,7 +8,6 @@ const Landing = () => {
   const [visibleSections, setVisibleSections] = useState(new Set());
   const heroRef = useRef(null);
   const featuresRef = useRef(null);
-  const referralRef = useRef(null);
   const statsRef = useRef(null);
   const navigate = useNavigate();
 
@@ -30,7 +29,7 @@ const Landing = () => {
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
-    [heroRef, featuresRef, referralRef, statsRef].forEach(ref => {
+    [heroRef, featuresRef, statsRef].forEach(ref => {
       if (ref.current) observer.observe(ref.current);
     });
 
@@ -93,7 +92,7 @@ const Landing = () => {
           <div className="hidden md:flex items-center space-x-8">
             <button onClick={() => scrollToSection('home')} className="hover:text-amber-400 transition-colors">Home</button>
             <button onClick={() => scrollToSection('features')} className="hover:text-amber-400 transition-colors">Features</button>
-            <button onClick={() => scrollToSection('referrals')} className="hover:text-amber-400 transition-colors">Referrals</button>
+
             <button onClick={() => scrollToSection('contact')} className="hover:text-amber-400 transition-colors">Contact</button>
           </div>
 
@@ -123,7 +122,7 @@ const Landing = () => {
             <div className="px-4 py-6 space-y-4">
               <button onClick={() => scrollToSection('home')} className="block w-full text-left hover:text-amber-400 transition-colors">Home</button>
               <button onClick={() => scrollToSection('features')} className="block w-full text-left hover:text-amber-400 transition-colors">Features</button>
-              <button onClick={() => scrollToSection('referrals')} className="block w-full text-left hover:text-amber-400 transition-colors">Referrals</button>
+
               <button onClick={() => scrollToSection('contact')} className="block w-full text-left hover:text-amber-400 transition-colors">Contact</button>
              <button className="w-full border text-white px-6 py-3 rounded-full font-semibold">
               <Link to="/login" >
@@ -241,8 +240,7 @@ const Landing = () => {
             { icon: <Smartphone size={40} />, title: 'Airtime & Data', desc: 'Instantly top up airtime and purchase data bundles for all major networks. Fast, reliable, and always available 24/7.' },
             { icon: <Zap size={40} />, title: 'Bill Payments', desc: 'Pay electricity bills, cable TV subscriptions, and internet services with just a few taps. Never miss a payment again.' },
             { icon: <Shield size={40} />, title: 'Secure Wallet', desc: 'Fund your wallet with multiple payment options including bank transfer, card payments, and USSD. Your money and crypto are always safe.' },
-            { icon: <Gift size={40} />, title: 'Referral Rewards', desc: 'Earn money by inviting friends! Get rewarded for every successful referral and build your passive income.' },
-            { icon: <Shield size={40} />, title: 'Bank-Level Security', desc: 'Your data, money, and crypto are protected with enterprise-grade security, encryption, and fraud prevention systems.' }
+           { icon: <Shield size={40} />, title: 'Bank-Level Security', desc: 'Your data, money, and crypto are protected with enterprise-grade security, encryption, and fraud prevention systems.' }
           ].map((feature, index) => (
             <div 
               key={index} 
@@ -262,49 +260,6 @@ const Landing = () => {
           </div>
         </section>
 
-        {/* Referral Section */}
-      <section id="referrals" ref={referralRef} className="py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className={`bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 ${
-            visibleSections.has('referrals') ? 'animate-fade-in' : 'opacity-0'
-          }`}>
-            <div className="text-center">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Earn with Every 
-                <span className="bg-gradient-to-r from-amber-400 to-white bg-clip-text text-transparent"> Referral</span>
-              </h2>
-              <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-                Share your unique referral code and earn rewards when friends join and make their first transaction
-              </p>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-12">
-                <h3 className="text-2xl font-semibold text-amber-400 mb-6">Your Referral Code</h3>
-                <div className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-2xl text-2xl font-bold tracking-wider mb-6 inline-block">
-                  ZIPPY2024
-                </div>
-                <button className="bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-full font-semibold hover:bg-white/30 transition-all duration-300 border border-white/20">
-                  Share Code
-                </button>
-              </div>
-              
-              <div className="grid md:grid-cols-3 gap-8 text-center">
-                <div className="space-y-4">
-                  <div className="text-5xl font-bold text-amber-400">₦500</div>
-                  <p className="text-white/80">Per successful referral</p>
-                </div>
-                <div className="space-y-4">
-                  <div className="text-5xl font-bold text-amber-400">₦200</div>
-                  <p className="text-white/80">Bonus for your friend</p>
-                </div>
-                <div className="space-y-4">
-                  <div className="text-5xl font-bold text-amber-400">∞</div>
-                  <p className="text-white/80">Unlimited referrals</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Stats Section */}
       <section id="stats" ref={statsRef} className="py-20 bg-black/20">

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { authService } from '../services/authService';
 import LoadingSpinner from '../components/LoadingSpinner';
-import GoogleSignInButton from '../components/GoogleSignInButton';
+
 import { MdEmail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { useNotification } from '../components/notificationContext';
 import bg from '../../assets/bg.png';
@@ -12,9 +13,15 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { login } = useAuth();
+  const { login, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { showNotification } = useNotification();
+
+  useEffect(() => {
+    if (!authLoading && loading) {
+      setLoading(false);
+    }
+  }, [authLoading, loading]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +31,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await login(formData.email, formData.password);
+      const response = await login(formData.email, formData.password);
       showNotification({ type: 'success', message: 'Login successful! Welcome back.' });
       navigate('/home');
     } catch (err) {
@@ -39,13 +46,13 @@ const Login = () => {
   };
 
   return (
-    <div 
+    <div
       className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-amber-600 px-4"
     >
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
         <div className="text-center mb-6">
           <img
-            src={bg} 
+            src={bg}
             alt="Zippy Pay Logo"
             className="h-30 w-30 mx-auto rounded-full object-cover shadow"
           />
@@ -113,27 +120,18 @@ const Login = () => {
             {loading ? <LoadingSpinner size="sm" /> : 'Sign In'}
           </button>
 
-          {/* Divider */}
-          <div className="flex items-center">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="mx-2 text-gray-500 text-sm">Or</span>
-            <div className="flex-grow border-t border-gray-300"></div>
-          </div>
 
-          {/* Google */}
-          <GoogleSignInButton 
-            onSuccess={() => {
-              showNotification({ type: 'success', message: 'Google login successful! Welcome back.' });
-              navigate('/home');
-            }}
-            onError={(err) => showNotification({ type: 'error', message: err })}
-          />
 
           {/* Register */}
           <p className="text-center text-sm text-gray-600 mt-4">
             Don’t have an account?{' '}
             <Link to="/register" className="text-[#F59E0B] hover:underline font-medium">
               Sign up
+            </Link>
+          </p>
+          <p className="text-center text-sm text-gray-600">
+            <Link to="/forgot-password" className="text-[#F59E0B] hover:underline font-medium">
+              Forgot Password?
             </Link>
           </p>
           <p className="text-center text-sm text-gray-600">

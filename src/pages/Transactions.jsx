@@ -100,9 +100,8 @@ const Transactions = () => {
                 <option value="all">All Types</option>
                 <option value="airtime">Airtime</option>
                 <option value="data">Data</option>
-                <option value="bill">Bills</option>
+                <option value="bill">Bill</option>
                 <option value="wallet_fund">Wallet Fund</option>
-                <option value="withdrawal">Withdrawal</option>
               </select>
 
               <select

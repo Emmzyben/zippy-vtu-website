@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
+import { walletService } from '../services/walletService';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { Wallet as WalletIcon } from 'lucide-react';
 
@@ -10,7 +11,7 @@ const Wallet = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const { balance, fundWallet } = useWallet();
+  const { balance, fundWallet, refreshWallet } = useWallet();
 
   const quickAmounts = [1000, 2000, 5000, 10000, 20000, 50000];
 
@@ -25,15 +26,38 @@ const Wallet = () => {
       if (amount < 100) throw new Error('Minimum funding amount is ₦100');
 
       const response = await fundWallet(amount);
-      if (response.payment_url) {
-        window.location.href = response.payment_url;
-      } else {
-        setSuccess('Wallet funded successfully!');
-        setFundAmount('');
-      }
+
+      // Use Paystack popup instead of redirect
+      const handler = window.PaystackPop.setup({
+        key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_test_4dc96782ee661d5ee15dd5f9f0be5b28e9d7b85a',
+        email: response.email,
+        amount: amount * 100, // Convert to kobo
+        ref: response.data.reference,
+        onClose: function() {
+          setError('Payment cancelled');
+          setLoading(false);
+        },
+        callback: function(response) {
+          // Handle payment success - call verification
+          walletService.verifyPayment(response.reference)
+            .then(() => {
+              setSuccess('Payment completed and wallet funded successfully!');
+              setFundAmount('');
+              refreshWallet();
+            })
+            .catch((verifyError) => {
+              console.error('Verification failed:', verifyError);
+              setError('Payment completed but verification failed. Please contact support.');
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        }
+      });
+      handler.openIframe();
+
     } catch (err) {
       setError(err.message);
-    } finally {
       setLoading(false);
     }
   };

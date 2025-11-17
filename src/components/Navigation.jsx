@@ -16,7 +16,6 @@ const Navigation = () => {
     { path: '/bills', icon: Receipt, label: 'Bills' },
     { path: '/wallet', icon: Wallet, label: 'Wallet' },
     { path: '/transactions', icon: History, label: 'History' },
-    { path: '/referral', icon: Users, label: 'Referral' },
     { path: '/profile', icon: User, label: 'Profile' },
   ];
 

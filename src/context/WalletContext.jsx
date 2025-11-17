@@ -64,6 +64,8 @@ export const WalletProvider = ({ children }) => {
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
       const response = await walletService.fundWallet(amount);
+      // Reload wallet balance after successful funding
+      await fetchWalletData();
       return response;
     } catch (error) {
       dispatch({ type: 'SET_ERROR', payload: error.message });

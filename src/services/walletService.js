@@ -24,7 +24,7 @@ export const walletService = {
       const response = await api.post('/wallet/fund', { amount });
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fund wallet');
+      throw new Error(error.response?.data?.message || 'Failed to initialize payment');
     }
   },
 
@@ -34,6 +34,15 @@ export const walletService = {
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || 'Transaction failed');
+    }
+  },
+
+  async verifyPayment(reference) {
+    try {
+      const response = await api.post('/wallet/verify', { reference });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Payment verification failed');
     }
   }
 };

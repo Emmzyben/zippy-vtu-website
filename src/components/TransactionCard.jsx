@@ -79,6 +79,8 @@ const TransactionCard = ({ transaction }) => {
               ? 'Wallet Funding'
               : transaction.type === 'withdrawal'
               ? 'Withdrawal'
+               : transaction.type === 'bill'
+              ? 'Bill Payment'
               : `${transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)} Purchase`}
           </h3>
           <p className="text-xs text-neutral-500 mt-1">
