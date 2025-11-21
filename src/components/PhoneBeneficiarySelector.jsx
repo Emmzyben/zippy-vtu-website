@@ -42,8 +42,16 @@ const PhoneBeneficiarySelector = ({ value, onSelect, onAdd }) => {
             await loadBeneficiaries();
             onAdd?.();
         } catch (error) {
-            console.error('Failed to add beneficiary:', error);
-            alert('Failed to add beneficiary. It may already exist.');
+            console.log('--- DEBUG: ADD BENEFICIARY ERROR ---');
+            console.log('Error object:', error);
+            console.log('Error response:', error.response);
+            console.log('Error status:', error.response?.status);
+            console.log('Error data:', error.response?.data);
+            console.log('------------------------------------');
+
+            const debugInfo = JSON.stringify(error.response?.data || {}, null, 2);
+            const status = error.response?.status || 'Unknown';
+            alert(`DEBUG ERROR:\nStatus: ${status}\nData: ${debugInfo}\n\nOriginal Error: ${error.message}`);
         }
     };
 
