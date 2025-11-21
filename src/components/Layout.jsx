@@ -8,7 +8,7 @@ const Layout = () => {
   const location = useLocation();
 
   // Paths where MobileNavigation should be hidden
-  const hideMobileNavPaths = ['/login', '/register', '/landing', '/faq', '/contact' ,'/terms', '/privacy', '/verify-email'];
+  const hideMobileNavPaths = ['/login', '/register', '/landing', '/faq', '/contact', '/terms', '/privacy', '/verify-email', '/forgot-password'];
 
   const shouldShowMobileNav = !hideMobileNavPaths.includes(location.pathname);
 
