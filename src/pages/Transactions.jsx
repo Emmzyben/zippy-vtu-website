@@ -102,6 +102,7 @@ const Transactions = () => {
                 <option value="data">Data</option>
                 <option value="bill">Bill</option>
                 <option value="wallet_fund">Wallet Fund</option>
+                <option value="p2p_transfer">Transfer</option>
               </select>
 
               <select

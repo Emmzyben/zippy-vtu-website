@@ -10,6 +10,12 @@ const TransactionCard = ({ transaction }) => {
         return <ArrowDownRight className="text-green-500" size={20} />;
       case 'withdrawal':
         return <ArrowUpRight className="text-red-500" size={20} />;
+      case 'p2p_transfer':
+        return transaction.details?.transfer_type === 'credit' ? (
+          <ArrowDownRight className="text-green-500" size={20} />
+        ) : (
+          <ArrowUpRight className="text-red-500" size={20} />
+        );
       default:
         return <ArrowUpRight className="text-blue-500" size={20} />;
     }
@@ -78,10 +84,14 @@ const TransactionCard = ({ transaction }) => {
             {transaction.type === 'wallet_fund'
               ? 'Wallet Funding'
               : transaction.type === 'withdrawal'
-              ? 'Withdrawal'
-               : transaction.type === 'bill'
-              ? 'Bill Payment'
-              : `${transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)} Purchase`}
+                ? 'Withdrawal'
+                : transaction.type === 'bill'
+                  ? 'Bill Payment'
+                  : transaction.type === 'p2p_transfer'
+                    ? transaction.details?.transfer_type === 'credit'
+                      ? `Received from ${transaction.details?.sender_name || 'User'}`
+                      : `Transfer to ${transaction.details?.recipient_name || 'User'}`
+                    : `${transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)} Purchase`}
           </h3>
           <p className="text-xs text-neutral-500 mt-1">
             {formatDate(transaction.date || transaction.created_at)}

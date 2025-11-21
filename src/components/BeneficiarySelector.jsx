@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { beneficiariesAPI } from '../services/api';
 import { Users, ChevronDown, ChevronUp, UserPlus, Trash2 } from 'lucide-react';
 
-const BeneficiarySelector = ({ value, onSelect, onAdd }) => {
+const BeneficiarySelector = ({ value, onSelect, onAdd, type = 'email' }) => {
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [showList, setShowList] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,13 +18,21 @@ const BeneficiarySelector = ({ value, onSelect, onAdd }) => {
       setBeneficiaries(response.data.beneficiaries || []);
     } catch (error) {
       console.error('Failed to load beneficiaries:', error);
+      // Only alert if it's not a 401 (auth) error, to avoid spamming on logout
+      if (error.response?.status !== 401) {
+        alert('Failed to load beneficiaries list. Please refresh.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   const handleSelect = (beneficiary) => {
-    onSelect(beneficiary);
+    if (type === 'email') {
+      onSelect(beneficiary.email || '');
+    } else {
+      onSelect(beneficiary.phone_number || '');
+    }
     setShowList(false);
   };
 
@@ -32,14 +40,22 @@ const BeneficiarySelector = ({ value, onSelect, onAdd }) => {
     if (!value) return;
 
     try {
-      await beneficiariesAPI.addBeneficiary({
-        phone_number: value,
-        name: `Beneficiary ${value.slice(-4)}`,
-      });
+      if (type === 'email') {
+        await beneficiariesAPI.addBeneficiary({
+          email: value,
+          name: `Beneficiary ${value.split('@')[0]}`,
+        });
+      } else {
+        await beneficiariesAPI.addBeneficiary({
+          phone_number: value,
+          name: `Beneficiary ${value.slice(-4)}`,
+        });
+      }
       await loadBeneficiaries();
       onAdd?.();
     } catch (error) {
       console.error('Failed to add beneficiary:', error);
+      alert('Failed to add beneficiary. It may already exist.');
     }
   };
 
@@ -55,23 +71,49 @@ const BeneficiarySelector = ({ value, onSelect, onAdd }) => {
     }
   };
 
+  const getDisplayValue = (beneficiary) => {
+    if (type === 'email') {
+      return beneficiary.email;
+    }
+    return beneficiary.phone_number;
+  };
+
+  const getDisplayName = (beneficiary) => {
+    if (type === 'email') {
+      return beneficiary.name || `Beneficiary ${beneficiary.email?.split('@')[0]}`;
+    }
+    return beneficiary.name || `Beneficiary ${beneficiary.phone_number?.slice(-4)}`;
+  };
+
+  const getPlaceholder = () => {
+    return type === 'email' ? 'recipient@example.com' : '08012345678';
+  };
+
+  const getLabel = () => {
+    return type === 'email' ? 'Recipient Email' : 'Phone Number';
+  };
+
+  const getInputType = () => {
+    return type === 'email' ? 'email' : 'tel';
+  };
+
   return (
     <div className="relative">
       <label
-        htmlFor="beneficiaryPhone"
+        htmlFor="beneficiaryInput"
         className="block text-sm font-medium text-neutral-700 mb-1"
       >
-        Phone Number
+        {getLabel()}
       </label>
 
       <div className="flex gap-2">
         <input
-          type="tel"
-          id="beneficiaryPhone"
+          type={getInputType()}
+          id="beneficiaryInput"
           value={value}
-          onChange={(e) => onSelect({ phone_number: e.target.value })}
+          onChange={(e) => onSelect(e.target.value)}
           className="flex-1 border border-neutral-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#5C2D91] transition"
-          placeholder="08012345678"
+          placeholder={getPlaceholder()}
           required
         />
         <button
@@ -89,34 +131,36 @@ const BeneficiarySelector = ({ value, onSelect, onAdd }) => {
           {loading ? (
             <div className="p-3 text-center text-neutral-500">Loading...</div>
           ) : beneficiaries.length > 0 ? (
-            beneficiaries.map((b) => (
-              <div
-                key={b.id}
-                className="flex justify-between items-center px-4 py-3 hover:bg-purple-50 border-b border-neutral-100 last:border-b-0 transition"
-              >
-                <button
-                  type="button"
-                  onClick={() => handleSelect(b)}
-                  className="flex-1 text-left"
+            beneficiaries
+              .filter(b => type === 'email' ? b.email : b.phone_number)
+              .map((b) => (
+                <div
+                  key={b.id}
+                  className="flex justify-between items-center px-4 py-3 hover:bg-purple-50 border-b border-neutral-100 last:border-b-0 transition"
                 >
-                  <p className="font-medium text-neutral-800">
-                    {b.name || `Beneficiary ${b.phone_number.slice(-4)}`}
-                  </p>
-                  <p className="text-sm text-neutral-500">{b.phone_number}</p>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSelect(b)}
+                    className="flex-1 text-left"
+                  >
+                    <p className="font-medium text-neutral-800">
+                      {getDisplayName(b)}
+                    </p>
+                    <p className="text-sm text-neutral-500">{getDisplayValue(b)}</p>
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete(b.id, b.name || `Beneficiary ${b.phone_number.slice(-4)}`);
-                  }}
-                  className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition"
-                >
-                  <Trash2 size={16} />
-                </button>
-              </div>
-            ))
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(b.id, getDisplayName(b));
+                    }}
+                    className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              ))
           ) : (
             <div className="p-3 text-center text-neutral-500 text-sm">
               No beneficiaries yet

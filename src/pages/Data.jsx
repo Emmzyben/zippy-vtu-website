@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { vtuService } from '../services/vtuService';
 import NetworkSelector from '../components/NetworkSelector';
-import BeneficiarySelector from '../components/BeneficiarySelector';
+import PhoneBeneficiarySelector from '../components/PhoneBeneficiarySelector';
 import LoadingSpinner from '../components/LoadingSpinner';
 import NotificationModal from '../components/NotificationModal';
 
@@ -225,7 +225,7 @@ const Data = () => {
         </div>
 
         {/* Wallet balance */}
-          <div className="mb-6 bg-gradient-to-r from-[#5C2D91] to-purple-600 text-white p-4 rounded-2xl shadow-md flex justify-between items-center">
+        <div className="mb-6 bg-gradient-to-r from-[#5C2D91] to-purple-600 text-white p-4 rounded-2xl shadow-md flex justify-between items-center">
           <span className="text-sm opacity-90">Wallet Balance</span>
           <span className="text-2xl font-semibold">{formatBalance(balance)}</span>
         </div>
@@ -241,11 +241,10 @@ const Data = () => {
             networks={networks}
           />
 
-          <BeneficiarySelector
-            selectedNetwork={formData.network}
+          <PhoneBeneficiarySelector
             value={formData.phone}
-            onSelect={(b) =>
-              setFormData({ ...formData, phone: b.phone_number })
+            onSelect={(phone) =>
+              setFormData({ ...formData, phone })
             }
             onAdd={() => setModalState({
               isOpen: true,
@@ -270,11 +269,10 @@ const Data = () => {
                 {dataPlans.map((plan) => (
                   <label
                     key={plan.id}
-                    className={`p-4 border rounded-xl flex justify-between items-center cursor-pointer transition-all ${
-                      formData.variation_code === plan.variation_code
-                        ? 'border-purple-600 bg-purple-50 text-purple-700'
-                        : 'border-gray-200 hover:border-purple-400 hover:bg-gray-50'
-                    }`}
+                    className={`p-4 border rounded-xl flex justify-between items-center cursor-pointer transition-all ${formData.variation_code === plan.variation_code
+                      ? 'border-purple-600 bg-purple-50 text-purple-700'
+                      : 'border-gray-200 hover:border-purple-400 hover:bg-gray-50'
+                      }`}
                   >
                     <input
                       type="radio"
@@ -318,7 +316,7 @@ const Data = () => {
             type="submit"
             disabled={loading || !formData.network || !formData.phone || !formData.variation_code}
             className="w-full mt-6 bg-[#5C2D91] text-white font-semibold py-3 rounded-lg hover:bg-[#4A1F7C] transition-all shadow-md hover:shadow-lg flex justify-center items-center"
-            >
+          >
             {loading ? <LoadingSpinner size="sm" /> : 'Buy Data'}
           </button>
         </form>

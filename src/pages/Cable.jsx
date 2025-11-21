@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useWallet } from "../context/WalletContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import NotificationModal from "../components/NotificationModal";
-import BeneficiarySelector from "../components/BeneficiarySelector";
+import PhoneBeneficiarySelector from "../components/PhoneBeneficiarySelector";
 import { Tv, CheckCircle } from "lucide-react";
 import { vtuService } from "../services/vtuService";
 
@@ -466,16 +466,15 @@ const Cable = () => {
               )}
 
               {selectedProvider !== "showmax" && (
-                <BeneficiarySelector
-                  selectedNetwork={selectedProvider}
+                <PhoneBeneficiarySelector
                   value={formData.phone}
-                  onSelect={(beneficiary) => setFormData(prev => ({ ...prev, phone: beneficiary.phone_number }))}
+                  onSelect={(phone) => setFormData(prev => ({ ...prev, phone }))}
                   onAdd={() => setModalState({
-                  isOpen: true,
-                  type: 'success',
-                  title: 'Success',
-                  message: 'Beneficiary added successfully!',
-                })}
+                    isOpen: true,
+                    type: 'success',
+                    title: 'Success',
+                    message: 'Beneficiary added successfully!',
+                  })}
                 />
               )}
 

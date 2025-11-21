@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useWallet } from "../context/WalletContext";
 import LoadingSpinner from "../components/LoadingSpinner";
-import BeneficiarySelector from "../components/BeneficiarySelector";
+import PhoneBeneficiarySelector from "../components/PhoneBeneficiarySelector";
 import NotificationModal from "../components/NotificationModal";
 import { Zap } from "lucide-react";
 import { vtuService } from "../services/vtuService";
@@ -316,18 +316,19 @@ const Electricity = () => {
                   className="w-full mt-1 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#5C2D91] focus:border-transparent"
                 />
               </div>
-<BeneficiarySelector
-  value={formData.phone}
-  onSelect={(beneficiary) =>
-    setFormData({ ...formData, phone: beneficiary.phone_number })
-  }
-   onAdd={() => setModalState({
+
+              <PhoneBeneficiarySelector
+                value={formData.phone}
+                onSelect={(phone) =>
+                  setFormData({ ...formData, phone })
+                }
+                onAdd={() => setModalState({
                   isOpen: true,
                   type: 'success',
                   title: 'Success',
                   message: 'Beneficiary added successfully!',
                 })}
-/>
+              />
 
               <div>
                 <label className="text-sm font-medium text-gray-700">

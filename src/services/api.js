@@ -9,8 +9,8 @@ import axios from 'axios';
 const API_BASE_URL =  "https://zippy-vtu.onrender.com" ;
 
 const api = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
-  timeout: 30000, 
+  baseURL: '/api',
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -41,10 +41,23 @@ api.interceptors.response.use(
 );
 
 // Beneficiaries API
+// Beneficiaries API
 export const beneficiariesAPI = {
-  getBeneficiaries: () => api.get('/beneficiaries'),
-  addBeneficiary: (data) => api.post('/beneficiaries', data),
-  deleteBeneficiary: (id) => api.delete(`/beneficiaries/${id}`),
+  getBeneficiaries: () => api.get('/beneficiaries'), // Deprecated
+  addBeneficiary: (data) => api.post('/beneficiaries', data), // Deprecated
+  deleteBeneficiary: (id) => api.delete(`/beneficiaries/${id}`), // Deprecated
+};
+
+export const phoneBeneficiariesAPI = {
+  getAll: () => api.get('/beneficiaries/phone'),
+  add: (data) => api.post('/beneficiaries/phone', data),
+  delete: (id) => api.delete(`/beneficiaries/phone/${id}`),
+};
+
+export const emailBeneficiariesAPI = {
+  getAll: () => api.get('/beneficiaries/email'),
+  add: (data) => api.post('/beneficiaries/email', data),
+  delete: (id) => api.delete(`/beneficiaries/email/${id}`),
 };
 
 export default api;

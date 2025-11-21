@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
 import { vtuService } from '../services/vtuService';
 import NetworkSelector from '../components/NetworkSelector';
-import BeneficiarySelector from '../components/BeneficiarySelector';
+import PhoneBeneficiarySelector from '../components/PhoneBeneficiarySelector';
 import LoadingSpinner from '../components/LoadingSpinner';
 import NotificationModal from '../components/NotificationModal';
 
@@ -153,10 +153,9 @@ const Airtime = () => {
 
             {/* Phone Number */}
             <div className="mt-5">
-              <BeneficiarySelector
-                selectedNetwork={formData.network}
+              <PhoneBeneficiarySelector
                 value={formData.phone}
-                onSelect={(beneficiary) => setFormData({ ...formData, phone: beneficiary.phone_number })}
+                onSelect={(phone) => setFormData({ ...formData, phone })}
                 onAdd={() => setModalState({
                   isOpen: true,
                   type: 'success',
@@ -175,11 +174,10 @@ const Airtime = () => {
                     key={amount}
                     type="button"
                     onClick={() => handleQuickAmount(amount)}
-                    className={`py-2 px-4 rounded-lg border text-sm font-medium transition-all ${
-                      formData.amount === amount.toString()
-                        ? 'bg-[#5C2D91] text-white border-[#5C2D91] shadow-md'
-                        : 'border-gray-200 hover:border-[#5C2D91] hover:bg-purple-50'
-                    }`}
+                    className={`py-2 px-4 rounded-lg border text-sm font-medium transition-all ${formData.amount === amount.toString()
+                      ? 'bg-[#5C2D91] text-white border-[#5C2D91] shadow-md'
+                      : 'border-gray-200 hover:border-[#5C2D91] hover:bg-purple-50'
+                      }`}
                   >
                     ₦{amount}
                   </button>
