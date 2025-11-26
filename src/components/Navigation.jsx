@@ -24,7 +24,7 @@ const Navigation = () => {
       {/* Logo Section */}
       <div className="flex h-20 items-center justify-center border-b border-gray-100">
         <img
-          src="../../assets/bg.png"
+          src="/bg.png"
           alt="Zippy Pay Logo"
           className="h-20 w-40 rounded-full object-cover"
         />
@@ -49,11 +49,10 @@ const Navigation = () => {
               <li key={path}>
                 <Link
                   to={path}
-                  className={`flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'bg-[#5C2D91] text-white shadow-md'
-                      : 'text-neutral-600 hover:text-[#5C2D91] hover:bg-[#5C2D91]/10'
-                  }`}
+                  className={`flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition-all duration-200 ${isActive
+                    ? 'bg-[#5C2D91] text-white shadow-md'
+                    : 'text-neutral-600 hover:text-[#5C2D91] hover:bg-[#5C2D91]/10'
+                    }`}
                 >
                   <Icon size={20} />
                   <span>{label}</span>
