@@ -44,7 +44,6 @@ const EmailBeneficiarySelector = ({ value, onSelect, onAdd }) => {
         } catch (error) {
             console.error('Failed to add beneficiary:', error);
             const errorMessage = error.response?.data?.error ||
-                error.response?.data?.errors?.[0]?.msg ||
                 'Failed to add beneficiary. It may already exist.';
             alert(errorMessage);
         }
