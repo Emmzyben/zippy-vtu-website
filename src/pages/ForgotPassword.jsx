@@ -4,7 +4,6 @@ import { useNotification } from '../components/notificationContext';
 import { authService } from '../services/authService';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { MdEmail, MdArrowBack } from 'react-icons/md';
-import bg from '../../assets/bg.png';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -41,7 +40,7 @@ const ForgotPassword = () => {
         <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10 text-center">
           <div className="mb-6">
             <img
-              src={bg}
+              src="/bg.png"
               alt="Zippy Pay Logo"
               className="h-30 w-30 mx-auto rounded-full object-cover shadow"
             />
@@ -89,7 +88,7 @@ const ForgotPassword = () => {
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
         <div className="text-center mb-6">
           <img
-            src={bg}
+            src="/bg.png"
             alt="Zippy Pay Logo"
             className="h-30 w-30 mx-auto rounded-full object-cover shadow"
           />

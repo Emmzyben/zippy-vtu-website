@@ -2,20 +2,19 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authService } from '../services/authService';
-import LoadingSpinner from '../components/LoadingSpinner';
 
 import { MdEmail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import { useNotification } from '../components/notificationContext';
-import bg from '../../assets/bg.png';
+
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [notif, setNotif] = useState({ type: "", message: "" });
+  const [showNotif, setShowNotif] = useState(false);
 
   const { login, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  const { showNotification } = useNotification();
 
   useEffect(() => {
     if (!authLoading && loading) {
@@ -30,16 +29,31 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setNotif({ type: "", message: "" });
+    setShowNotif(false);
+
     try {
-      const response = await login(formData.email, formData.password);
-      showNotification({ type: 'success', message: 'Login successful! Welcome back.' });
+      await login(formData.email, formData.password);
+      setNotif({ type: "success", message: "Login successful!" });
+      setShowNotif(true);
+
+      // Hide notification after 3 seconds
+      setTimeout(() => setShowNotif(false), 3000);
+
       navigate('/home');
     } catch (err) {
-      showNotification({ type: 'error', message: err.message });
+      setNotif({ type: "error", message: err.message || "Login failed" });
+      setShowNotif(true);
+
+      setTimeout(() => setShowNotif(false), 3000);
     } finally {
       setLoading(false);
     }
   };
+
+  const Spinner = () => (
+    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto"></div>
+  );
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -52,7 +66,7 @@ const Login = () => {
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
         <div className="text-center mb-6">
           <img
-            src={bg}
+            src="/bg.png"
             alt="Zippy Pay Logo"
             className="h-30 w-30 mx-auto rounded-full object-cover shadow"
           />
@@ -63,6 +77,18 @@ const Login = () => {
             Your gateway to seamless transactions
           </p>
         </div>
+        {notif.message && showNotif && (
+          <div
+            className={`mb-4 p-3 rounded-lg text-sm font-medium transition-opacity duration-500 ${notif.type === "error"
+              ? "bg-red-100 text-red-700 border border-red-300"
+              : "bg-green-100 text-green-700 border border-green-300"
+              }`}
+            style={{ opacity: showNotif ? 1 : 0 }}
+          >
+            {notif.message}
+          </div>
+        )}
+
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -115,10 +141,11 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-900 to-amber-600 text-white px-8 py-3 rounded-full font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300"
+            className="w-full bg-gradient-to-r from-purple-900 to-amber-600 text-white px-8 py-3 rounded-full font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 flex items-center justify-center"
           >
-            {loading ? <LoadingSpinner size="sm" /> : 'Sign In'}
+            {loading ? <Spinner /> : 'Sign In'}
           </button>
+
 
 
 

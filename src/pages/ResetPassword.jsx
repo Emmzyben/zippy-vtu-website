@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useNotification } from '../components/notificationContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import bg from '../../assets/bg.png';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -110,7 +109,7 @@ const ResetPassword = () => {
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
         <div className="text-center mb-6">
           <img
-            src={bg}
+            src="/bg.png"
             alt="Zippy Pay Logo"
             className="h-30 w-30 mx-auto rounded-full object-cover shadow"
           />

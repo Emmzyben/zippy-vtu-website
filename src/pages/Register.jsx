@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 import { MdPerson, MdEmail, MdPhone, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import bg from '../../assets/bg.png';
 import { useNotification } from '../components/notificationContext';
 
 const Register = () => {
@@ -59,13 +58,13 @@ const Register = () => {
   };
 
   return (
-    <div 
-       className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-amber-600 px-4"
+    <div
+      className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-amber-600 px-4"
     >
-         <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
+      <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
         <div className="text-center mb-6">
           <img
-            src={bg}
+            src="/bg.png"
             alt="Zippy Pay Logo"
             className="h-30 w-30 mx-auto rounded-full object-cover shadow"
           />
@@ -197,10 +196,10 @@ const Register = () => {
 
 
           {/* Submit */}
-          <button 
+          <button
             type="submit"
             disabled={loading}
-               className="w-full bg-gradient-to-r from-purple-900 to-amber-600 text-white px-8 py-3 rounded-full font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300"
+            className="w-full bg-gradient-to-r from-purple-900 to-amber-600 text-white px-8 py-3 rounded-full font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300"
           >
             {loading ? <LoadingSpinner size="sm" /> : 'Create Account'}
           </button>
