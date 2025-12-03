@@ -8,7 +8,7 @@ const Terms = () => {
       {/* Header */}
       <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-amber-600 text-white">
         <div className="max-w-6xl mx-auto px-4 py-20">
-          <Link 
+          <Link
             to="/"
             className="flex items-center text-amber-400 hover:text-white transition-colors mb-8"
           >
@@ -21,7 +21,7 @@ const Terms = () => {
           </p>
         </div>
       </div>
-      
+
       <div className="max-w-4xl mx-auto px-4 py-20">
         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 space-y-8">
           <div className="text-center mb-8">
@@ -36,8 +36,8 @@ const Terms = () => {
             </h2>
             <div className="text-white/80 space-y-4">
               <p>
-                By accessing or using Zippy Pay services, you agree to be bound by these Terms of Service 
-                and all applicable laws and regulations. If you do not agree with any of these terms, 
+                By accessing or using Zippy Pay services, you agree to be bound by these Terms of Service
+                and all applicable laws and regulations. If you do not agree with any of these terms,
                 you are prohibited from using our services.
               </p>
             </div>
@@ -72,7 +72,7 @@ const Terms = () => {
                 <li className="flex items-start"><span className="mr-2 mt-1 text-amber-400">✔️</span> Bill payments and money transfers</li>
                 <li className="flex items-start"><span className="mr-2 mt-1 text-amber-400">✔️</span> Crypto buying and selling</li>
               </ul>
-              
+
               <p className="mt-6"><strong>Prohibited Activities:</strong></p>
               <ul className="space-y-2 ml-6">
                 <li className="flex items-start"><span className="mr-2 mt-1 text-red-400">❌</span> Money laundering or terrorist financing</li>
@@ -130,8 +130,8 @@ const Terms = () => {
             <h2 className="text-2xl font-bold text-amber-400">Dispute Resolution</h2>
             <div className="text-white/80 space-y-4">
               <p>
-                For transaction disputes, please contact our support team within 60 days of the transaction date. 
-                We will investigate and resolve disputes fairly and promptly. Any unresolved disputes will be 
+                For transaction disputes, please contact our support team within 60 days of the transaction date.
+                We will investigate and resolve disputes fairly and promptly. Any unresolved disputes will be
                 subject to arbitration under Nigerian law.
               </p>
             </div>
@@ -141,8 +141,8 @@ const Terms = () => {
             <h2 className="text-2xl font-bold text-amber-400">Changes to Terms</h2>
             <div className="text-white/80 space-y-4">
               <p>
-                We reserve the right to modify these terms at any time. Changes will be effective immediately 
-                upon posting to our website or app. Continued use of our services constitutes acceptance of 
+                We reserve the right to modify these terms at any time. Changes will be effective immediately
+                upon posting to our website or app. Continued use of our services constitutes acceptance of
                 the modified terms.
               </p>
             </div>
@@ -152,23 +152,13 @@ const Terms = () => {
             <h2 className="text-2xl font-bold text-amber-400">Governing Law</h2>
             <div className="text-white/80 space-y-4">
               <p>
-                These terms are governed by the laws of the Federal Republic of Nigeria. Any legal proceedings 
+                These terms are governed by the laws of the Federal Republic of Nigeria. Any legal proceedings
                 must be brought in the courts of Lagos State, Nigeria.
               </p>
             </div>
           </section>
 
-          <section className="space-y-4">
-            <h2 className="text-2xl font-bold text-amber-400">Contact Information</h2>
-            <div className="text-white/80">
-              <p>For questions about these Terms of Service, contact us:</p>
-              <div className="mt-4 space-y-2">
-                <p><strong>Email:</strong> legal@zippypay.ng</p>
-                <p><strong>Phone:</strong> +234 800 123 4567</p>
-                <p><strong>Address:</strong> 123 Victoria Island, Lagos, Nigeria</p>
-              </div>
-            </div>
-          </section>
+
         </div>
       </div>
     </div>

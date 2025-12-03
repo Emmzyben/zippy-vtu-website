@@ -34,25 +34,10 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      authService.getCurrentUser()
-        .then(user => {
-          dispatch({ type: 'SET_USER', payload: user });
-          localStorage.setItem('user', JSON.stringify(user));
-        })
-        .catch((error) => {
-          if (error.response?.status === 401) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            dispatch({ type: 'SET_LOADING', payload: false });
-          } else {
-            dispatch({ type: 'SET_LOADING', payload: false });
-          }
-        });
-    } else {
-      dispatch({ type: 'SET_LOADING', payload: false });
-    }
+    // Force logout on app start: clear any stored auth data
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    dispatch({ type: 'SET_LOADING', payload: false });
   }, []);
 
   const login = async (email, password) => {

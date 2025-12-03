@@ -33,11 +33,10 @@ api.interceptors.response.use(
 );
 
 // Beneficiaries API
-// Beneficiaries API
 export const beneficiariesAPI = {
-  getBeneficiaries: () => api.get('/beneficiaries'), // Deprecated
-  addBeneficiary: (data) => api.post('/beneficiaries', data), // Deprecated
-  deleteBeneficiary: (id) => api.delete(`/beneficiaries/${id}`), // Deprecated
+  getBeneficiaries: () => api.get('/beneficiaries'), 
+  addBeneficiary: (data) => api.post('/beneficiaries', data), 
+  deleteBeneficiary: (id) => api.delete(`/beneficiaries/${id}`), 
 };
 
 export const phoneBeneficiariesAPI = {

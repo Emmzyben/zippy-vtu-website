@@ -77,21 +77,21 @@ const Login = () => {
             Your gateway to seamless transactions
           </p>
         </div>
-        {notif.message && showNotif && (
-          <div
-            className={`mb-4 p-3 rounded-lg text-sm font-medium transition-opacity duration-500 ${notif.type === "error"
-              ? "bg-red-100 text-red-700 border border-red-300"
-              : "bg-green-100 text-green-700 border border-green-300"
-              }`}
-            style={{ opacity: showNotif ? 1 : 0 }}
-          >
-            {notif.message}
-          </div>
-        )}
-
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
+          {notif.message && showNotif && (
+            <div
+              className={`mb-4 p-3 rounded-lg text-sm font-medium transition-opacity duration-500 ${notif.type === "error"
+                ? "bg-red-100 text-red-700 border border-red-300"
+                : "bg-green-100 text-green-700 border border-green-300"
+                }`}
+              style={{ opacity: showNotif ? 1 : 0 }}
+            >
+              {notif.message}
+            </div>
+          )}
+
           {/* Email */}
           <div>
             <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">

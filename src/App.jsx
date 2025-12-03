@@ -35,11 +35,7 @@ const ProtectedRoute = ({ children }) => {
   const isOnline = useOnline();
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
+    return children;
   }
 
   if (isAuthenticated && !isOnline) {
@@ -53,11 +49,7 @@ const PublicRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
+    return children;
   }
 
   return !isAuthenticated ? children : <Navigate to="/home" />;
@@ -67,11 +59,7 @@ const AuthRedirect = () => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
+    return null;
   }
 
   return isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/landing" />;

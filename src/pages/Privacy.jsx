@@ -8,7 +8,7 @@ const Privacy = () => {
       {/* Header */}
       <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-amber-600 text-white">
         <div className="max-w-6xl mx-auto px-4 py-20">
-          <Link 
+          <Link
             to="/"
             className="flex items-center text-amber-400 hover:text-white transition-colors mb-8"
           >
@@ -21,7 +21,7 @@ const Privacy = () => {
           </p>
         </div>
       </div>
-      
+
       <div className="max-w-4xl mx-auto px-4 py-20">
         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 space-y-8">
           <div className="text-center mb-8">
@@ -107,17 +107,6 @@ const Privacy = () => {
             </div>
           </section>
 
-          <section className="space-y-4">
-            <h2 className="text-2xl font-bold text-amber-400">Contact Information</h2>
-            <div className="text-white/80">
-              <p>If you have questions about this Privacy Policy, please contact us:</p>
-              <div className="mt-4 space-y-2">
-                <p><strong>Email:</strong> privacy@zippypay.ng</p>
-                <p><strong>Phone:</strong> +234 800 123 4567</p>
-                <p><strong>Address:</strong> 123 Victoria Island, Lagos, Nigeria</p>
-              </div>
-            </div>
-          </section>
         </div>
       </div>
     </div>
