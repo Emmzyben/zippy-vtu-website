@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useWallet } from "../context/WalletContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { Zap, Tv } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Bills = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
@@ -20,7 +22,7 @@ const Bills = () => {
   const handleCategorySelect = (category) => {
     const selectedCat = billCategories.find(cat => cat.id === category);
     if (selectedCat) {
-      window.location.href = selectedCat.path;
+      navigate(selectedCat.path);
     }
   };
 
