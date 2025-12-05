@@ -21,7 +21,9 @@ const TransactionDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const foundTransaction = transactions.find((t) => t.id === id);
+    // Convert id to number for comparison since URL params are strings
+    const transactionId = parseInt(id, 10);
+    const foundTransaction = transactions.find((t) => t.id === transactionId);
     if (foundTransaction) {
       setTransaction(foundTransaction);
       setLoading(false);
