@@ -4,6 +4,7 @@ import { useWallet } from "../context/WalletContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import PhoneBeneficiarySelector from "../components/PhoneBeneficiarySelector";
 import NotificationModal from "../components/NotificationModal";
+import TokenModal from "../components/TokenModal";
 import { Zap } from "lucide-react";
 import { vtuService } from "../services/vtuService";
 
@@ -26,7 +27,13 @@ const Electricity = () => {
     title: '',
     message: ''
   });
-  const [token, setToken] = useState("");
+  const [tokenModalState, setTokenModalState] = useState({
+    isOpen: false,
+    token: '',
+    meterNumber: '',
+    customerName: '',
+    amount: 0
+  });
 
   const { balance, refreshWallet } = useWallet();
 
@@ -67,17 +74,24 @@ const Electricity = () => {
 
       if (response.success) {
         if (response.status === "success") {
-          let successMessage = "Bill payment successful!";
+          // Show token modal for prepaid meters
           if (selectedMeterType === "prepaid" && response.token) {
-            setToken(response.token);
-            successMessage += `\n\nYour Token: ${response.token}`;
+            setTokenModalState({
+              isOpen: true,
+              token: response.token,
+              meterNumber: formData.accountNumber,
+              customerName: customerInfo?.Customer_Name || formData.customerName,
+              amount: parseFloat(formData.amount)
+            });
+          } else {
+            // Show regular notification for postpaid
+            setModalState({
+              isOpen: true,
+              type: 'success',
+              title: 'Payment Successful',
+              message: 'Bill payment successful!'
+            });
           }
-          setModalState({
-            isOpen: true,
-            type: 'success',
-            title: 'Payment Successful',
-            message: successMessage
-          });
           await refreshWallet();
           setFormData({ accountNumber: "", amount: "", phone: "", customerName: "" });
           setMeterVerified(false);
@@ -367,6 +381,17 @@ const Electricity = () => {
         type={modalState.type}
         title={modalState.title}
         message={modalState.message}
+      />
+
+      <TokenModal
+        isOpen={tokenModalState.isOpen}
+        onClose={() => {
+          setTokenModalState({ ...tokenModalState, isOpen: false });
+        }}
+        token={tokenModalState.token}
+        meterNumber={tokenModalState.meterNumber}
+        customerName={tokenModalState.customerName}
+        amount={tokenModalState.amount}
       />
     </div>
   );
