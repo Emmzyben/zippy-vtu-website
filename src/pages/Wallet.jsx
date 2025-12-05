@@ -34,7 +34,7 @@ const Wallet = () => {
 
       // Use Paystack popup instead of redirect
       const handler = window.PaystackPop.setup({
-        key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_test_4dc96782ee661d5ee15dd5f9f0be5b28e9d7b85a',
+        key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY ,
         email: response.email,
         amount: amount * 100, // Convert to kobo
         ref: response.data.reference,
