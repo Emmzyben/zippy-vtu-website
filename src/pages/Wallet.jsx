@@ -34,7 +34,7 @@ const Wallet = () => {
 
       // Use Paystack popup instead of redirect
       const handler = window.PaystackPop.setup({
-        key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY ,
+        key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
         email: response.email,
         amount: amount * 100, // Convert to kobo
         ref: response.data.reference,
@@ -233,6 +233,35 @@ const Wallet = () => {
                     min="100"
                     required
                   />
+
+                  {/* Fee Disclaimer */}
+                  {fundAmount && !isNaN(parseFloat(fundAmount)) && parseFloat(fundAmount) >= 100 && (
+                    <div className="mt-3 p-3 bg-neutral-50 border border-neutral-200 rounded-lg text-sm">
+                      <div className="flex justify-between mb-1">
+                        <span className="text-neutral-600">Transaction Fee:</span>
+                        <span className="font-medium text-neutral-800">
+                          {(() => {
+                            let amount = parseFloat(fundAmount);
+                            let fee = amount < 2500 ? amount * 0.015 : (amount * 0.015) + 100;
+                            return `₦${fee.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                          })()}
+                        </span>
+                      </div>
+                      <div className="flex justify-between border-t border-neutral-200 pt-1 mt-1">
+                        <span className="text-neutral-600 font-medium">Amount to Credit:</span>
+                        <span className="font-bold text-[#5C2D91]">
+                          {(() => {
+                            let amount = parseFloat(fundAmount);
+                            let fee = amount < 2500 ? amount * 0.015 : (amount * 0.015) + 100;
+                            return `₦${(amount - fee).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                          })()}
+                        </span>
+                      </div>
+                      <p className="text-xs text-neutral-500 mt-2">
+                        * A Paystack processing fee is deducted from your payment.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Fund Button */}

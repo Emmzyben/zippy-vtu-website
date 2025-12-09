@@ -230,15 +230,28 @@ const TransactionDetails = () => {
               Additional Details
             </h3>
             <div className="divide-y divide-neutral-100">
-              {Object.entries(transaction.details).map(([key, value]) => (
-                <div
-                  key={key}
-                  className="flex justify-between py-2 text-sm text-neutral-600"
-                >
-                  <span className="capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
-                  <span className="font-medium text-neutral-800">{value}</span>
-                </div>
-              ))}
+              {Object.entries(transaction.details).map(([key, value]) => {
+                let displayValue = value;
+                // Format currency values
+                if (['original_amount', 'fee', 'amount'].includes(key) && !isNaN(parseFloat(value))) {
+                  displayValue = new Intl.NumberFormat('en-NG', {
+                    style: 'currency',
+                    currency: 'NGN'
+                  }).format(value);
+                }
+                // Humanize keys (replace underscores with spaces)
+                const displayKey = key.replace(/_/g, ' ');
+
+                return (
+                  <div
+                    key={key}
+                    className="flex justify-between py-2 text-sm text-neutral-600"
+                  >
+                    <span className="capitalize">{displayKey}</span>
+                    <span className="font-medium text-neutral-800">{displayValue}</span>
+                  </div>
+                )
+              })}
             </div>
           </div>
         )}
