@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useNotification } from '../components/notificationContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import { authService } from '../services/authService';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -51,35 +52,17 @@ const ResetPassword = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token,
-          newPassword: formData.newPassword
-        }),
+      await authService.resetPassword(token, formData.newPassword);
+
+      showNotification({
+        type: 'success',
+        message: 'Password reset successfully! Please login with your new password.'
       });
-
-      const data = await response.json();
-
-      if (data.success) {
-        showNotification({
-          type: 'success',
-          message: 'Password reset successfully! Please login with your new password.'
-        });
-        navigate('/login');
-      } else {
-        showNotification({
-          type: 'error',
-          message: data.message || 'Failed to reset password'
-        });
-      }
+      navigate('/login');
     } catch (error) {
       showNotification({
         type: 'error',
-        message: 'Network error. Please try again.'
+        message: error.message || 'Failed to reset password'
       });
     } finally {
       setLoading(false);
