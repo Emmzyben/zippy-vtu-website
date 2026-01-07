@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Smartphone, Zap, Shield, BarChart3, ArrowRight, Users, TrendingUp, Clock } from 'lucide-react';
+import { Menu, X, Smartphone, Zap, Shield, BarChart3, ArrowRight, Users, TrendingUp, Clock, Download } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Landing = () => {
@@ -259,6 +259,89 @@ const Landing = () => {
       </section>
 
 
+
+      {/* Mobile App Section */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="bg-gradient-to-r from-purple-800/80 to-amber-600/80 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden relative border border-white/20">
+            <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+              <div className="space-y-6">
+                <div className="inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-sm font-semibold text-white mb-2 border border-white/10">
+                  New Release
+                </div>
+                <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                  Get the Zippy Pay
+                  <span className="block text-amber-300">Mobile App</span>
+                </h2>
+                <p className="text-lg text-white/90 leading-relaxed">
+                  Download our official Android app for a seamless experience. Manage your wallet, pay bills, and trade crypto faster than ever before.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <a
+                    href="#" // Dummy link
+                    className="flex items-center justify-center gap-3 bg-white text-purple-900 px-8 py-4 rounded-full font-bold hover:bg-amber-50 transition-all duration-300 transform hover:scale-105 shadow-lg group"
+                  >
+                    <Download size={24} className="group-hover:animate-bounce" />
+                    <div className="text-left">
+                      <div className="text-xs font-normal opacity-70">Download APK</div>
+                      <div className="text-base leading-none">For Android</div>
+                    </div>
+                  </a>
+                </div>
+                <p className="text-sm text-white/60">
+                  * Requires Android 8.0 or higher. iOS version coming soon.
+                </p>
+              </div>
+
+              <div className="hidden md:flex justify-center items-center relative">
+                <div className="relative z-10 transform rotate-12 hover:rotate-6 transition-transform duration-500">
+                  <div className="bg-black border-4 border-gray-800 rounded-[3rem] p-2 shadow-2xl w-[280px]">
+                    <div className="bg-gray-900 rounded-[2.5rem] overflow-hidden h-[550px] relative">
+                      {/* App Screen Mockup */}
+                      <div className="bg-purple-900 h-full w-full p-6 flex flex-col">
+                        <div className="flex justify-between items-center mb-6">
+                          <Menu size={20} className="text-white" />
+                          <div className="text-white font-bold">Zippy Pay</div>
+                          <div className="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center text-xs text-white">ZP</div>
+                        </div>
+                        <div className="bg-white/10 rounded-2xl p-4 mb-6">
+                          <div className="text-white/60 text-xs">Total Balance</div>
+                          <div className="text-white text-2xl font-bold">₦24,500.00</div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="bg-white/5 p-3 rounded-xl flex flex-col items-center gap-2">
+                            <Smartphone size={20} className="text-amber-400" />
+                            <span className="text-white text-xs">Airtime</span>
+                          </div>
+                          <div className="bg-white/5 p-3 rounded-xl flex flex-col items-center gap-2">
+                            <BarChart3 size={20} className="text-amber-400" />
+                            <span className="text-white text-xs">Data</span>
+                          </div>
+                          <div className="bg-white/5 p-3 rounded-xl flex flex-col items-center gap-2">
+                            <Zap size={20} className="text-amber-400" />
+                            <span className="text-white text-xs">Electricity</span>
+                          </div>
+                          <div className="bg-white/5 p-3 rounded-xl flex flex-col items-center gap-2">
+                            <Shield size={20} className="text-amber-400" />
+                            <span className="text-white text-xs">Cable</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-amber-500/20 blur-[100px] rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Decorative background elements */}
+            <div className="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl"></div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section id="stats" ref={statsRef} className="py-20 bg-black/20">
         <div className="max-w-6xl mx-auto px-4">
@@ -358,6 +441,20 @@ const Landing = () => {
           </div>
         </div>
       </footer>
+
+
+      {/* Floating Download Widget */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <a
+          href="#"
+          className="flex items-center gap-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group"
+        >
+          <div className="bg-white/20 p-1.5 rounded-full backdrop-blur-md">
+            <Smartphone size={20} className="group-hover:rotate-12 transition-transform" />
+          </div>
+          <span className="font-semibold text-sm md:text-base">Get Mobile App</span>
+        </a>
+      </div>
 
       <style jsx>{`
         @keyframes fade-in {
