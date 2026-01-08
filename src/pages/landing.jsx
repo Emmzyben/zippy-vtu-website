@@ -278,7 +278,7 @@ const Landing = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <a
-                    href="#" // Dummy link
+                    href="https://expo.dev/artifacts/eas/cDSVnZkkLMMffJfnYkyH2o.apk" // Actual link
                     className="flex items-center justify-center gap-3 bg-white text-purple-900 px-8 py-4 rounded-full font-bold hover:bg-amber-50 transition-all duration-300 transform hover:scale-105 shadow-lg group"
                   >
                     <Download size={24} className="group-hover:animate-bounce" />
@@ -446,8 +446,8 @@ const Landing = () => {
       {/* Floating Download Widget */}
       <div className="fixed bottom-6 right-6 z-50">
         <a
-          href="#"
-          className="flex items-center gap-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group"
+          href="https://expo.dev/artifacts/eas/cDSVnZkkLMMffJfnYkyH2o.apk"
+          className="flex items-center justify-center gap-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group"
         >
           <div className="bg-white/20 p-1.5 rounded-full backdrop-blur-md">
             <Smartphone size={20} className="group-hover:rotate-12 transition-transform" />

@@ -24,7 +24,7 @@ const Home = () => {
           </div>
 
           <a
-            href="#"
+            href="https://expo.dev/artifacts/eas/cDSVnZkkLMMffJfnYkyH2o.apk"
             className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95"
           >
             <Smartphone size={18} />
