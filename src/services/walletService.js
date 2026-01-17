@@ -46,24 +46,5 @@ export const walletService = {
     }
   },
 
-  async validateRecipient(email) {
-    try {
-      const response = await api.post('/wallet/validate-recipient', { email });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to validate recipient');
-    }
-  },
 
-  async transferFunds(recipientEmail, amount) {
-    try {
-      const response = await api.post('/wallet/transfer', {
-        recipient_email: recipientEmail,
-        amount: amount
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Transfer failed');
-    }
-  }
 };
