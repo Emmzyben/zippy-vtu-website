@@ -17,6 +17,7 @@ import Data from './pages/Data';
 import Bills from './pages/Bills';
 import Electricity from './pages/Electricity';
 import Cable from './pages/Cable';
+import Flights from './pages/Flights';
 import Wallet from './pages/Wallet';
 import Transactions from './pages/Transactions';
 import TransactionDetails from './pages/TransactionDetails';
@@ -29,6 +30,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import NoInternet from './pages/NoInternet';
 import { NotificationProvider } from './components/notificationContext';
+import InstallPromptModal from './components/InstallPromptModal';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -164,6 +166,14 @@ function AppRoutes() {
           }
         />
         <Route
+          path="/flights"
+          element={
+            <ProtectedRoute>
+              <Flights />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/wallet"
           element={
             <ProtectedRoute>
@@ -233,6 +243,7 @@ function App() {
           <Router>
             <AppRoutes />
             <EmailVerificationChecker />
+            <InstallPromptModal />
           </Router>
         </WalletProvider>
       </AuthProvider>

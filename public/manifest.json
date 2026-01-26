@@ -1,0 +1,22 @@
+{
+  "name": "Zippy Pay",
+  "short_name": "ZippyPay",
+  "description": "Lightning Fast Digital Payments",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#5C2D91",
+  "theme_color": "#5C2D91",
+  "icons": [
+    {
+      "src": "/bg.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/bg.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

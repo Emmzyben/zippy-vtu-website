@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL:import.meta.env.VITE_BASE_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -34,9 +34,9 @@ api.interceptors.response.use(
 
 // Beneficiaries API
 export const beneficiariesAPI = {
-  getBeneficiaries: () => api.get('/beneficiaries'), 
-  addBeneficiary: (data) => api.post('/beneficiaries', data), 
-  deleteBeneficiary: (id) => api.delete(`/beneficiaries/${id}`), 
+  getBeneficiaries: () => api.get('/beneficiaries'),
+  addBeneficiary: (data) => api.post('/beneficiaries', data),
+  deleteBeneficiary: (id) => api.delete(`/beneficiaries/${id}`),
 };
 
 export const phoneBeneficiariesAPI = {

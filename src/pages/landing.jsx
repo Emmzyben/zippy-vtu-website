@@ -277,6 +277,7 @@ const Landing = () => {
                   Download our official Android app for a seamless experience. Manage your wallet, pay bills, and trade crypto faster than ever before.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  {/* 
                   <a
                     href="https://expo.dev/artifacts/eas/uFpfGDL96oxtFEo9HwgmpF.apk" // Actual link
                     className="flex items-center justify-center gap-3 bg-white text-purple-900 px-8 py-4 rounded-full font-bold hover:bg-amber-50 transition-all duration-300 transform hover:scale-105 shadow-lg group"
@@ -287,9 +288,14 @@ const Landing = () => {
                       <div className="text-base leading-none">For Android</div>
                     </div>
                   </a>
+                  */}
+                  <div className="flex items-center gap-3 bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full font-bold border border-white/20">
+                    <Clock size={24} className="animate-pulse" />
+                    <span className="text-lg">Coming Soon</span>
+                  </div>
                 </div>
                 <p className="text-sm text-white/60">
-                  * Requires Android 8.0 or higher. iOS version coming soon.
+                  * App is currently in development. iOS and Android versions coming soon.
                 </p>
               </div>
 
@@ -443,7 +449,7 @@ const Landing = () => {
       </footer>
 
 
-      {/* Floating Download Widget */}
+      {/* Floating Download Widget 
       <div className="fixed bottom-6 right-6 z-50">
         <a
           href="https://expo.dev/artifacts/eas/uFpfGDL96oxtFEo9HwgmpF.apk"
@@ -455,6 +461,7 @@ const Landing = () => {
           <span className="font-semibold text-sm md:text-base">Get Mobile App</span>
         </a>
       </div>
+      */}
 
       <style jsx>{`
         @keyframes fade-in {

@@ -23,6 +23,7 @@ const Home = () => {
             <p className="text-sm text-neutral-500 mt-1">Welcome back to Zippy Pay</p>
           </div>
 
+          {/* 
           <a
             href="https://expo.dev/artifacts/eas/uFpfGDL96oxtFEo9HwgmpF.apk"
             className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95"
@@ -30,6 +31,7 @@ const Home = () => {
             <Smartphone size={18} />
             <span className="font-semibold text-sm">Get Mobile App</span>
           </a>
+          */}
         </div>
 
         <div className="grid gap-6 mb-8">
