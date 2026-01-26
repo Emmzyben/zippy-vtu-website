@@ -22,6 +22,7 @@ const Data = () => {
     title: '',
     message: ''
   });
+  const [activeTab, setActiveTab] = useState('Monthly');
 
   const { balance, refreshWallet } = useWallet();
 
@@ -38,6 +39,7 @@ const Data = () => {
 
   const loadDataPlans = async (network) => {
     setLoadingPlans(true);
+    setDataPlans([]); // Clear old plans before fetching new ones
     try {
       const serviceMap = {
         mtn: 'mtn-data',
@@ -59,7 +61,7 @@ const Data = () => {
         validity: v.name.split(' ').slice(1).join(' '),
         variation_code: v.variation_code,
         amount: parseFloat(v.variation_amount),
-      }));
+      })).sort((a, b) => a.amount - b.amount);
 
       setDataPlans(plans);
     } catch (err) {
@@ -254,6 +256,23 @@ const Data = () => {
             })}
           />
 
+          {/* Validity Filter Tabs */}
+          <div className="flex flex-wrap gap-2 p-1 bg-gray-100 rounded-xl">
+            {['Daily', 'Weekly', 'Monthly', 'Special Plans'].map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setActiveTab(tab)}
+                className={`flex-1 py-2 px-3 rounded-lg text-sm font-bold transition-all ${activeTab === tab
+                  ? 'bg-[#5C2D91] text-white shadow-md'
+                  : 'text-gray-500 hover:text-[#5C2D91] hover:bg-white'
+                  }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
           {/* Data Plans */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -266,29 +285,53 @@ const Data = () => {
               </div>
             ) : (
               <div className="grid gap-3">
-                {dataPlans.map((plan) => (
-                  <label
-                    key={plan.id}
-                    className={`p-4 border rounded-xl flex justify-between items-center cursor-pointer transition-all ${formData.variation_code === plan.variation_code
-                      ? 'border-purple-600 bg-purple-50 text-purple-700'
-                      : 'border-gray-200 hover:border-purple-400 hover:bg-gray-50'
-                      }`}
-                  >
-                    <input
-                      type="radio"
-                      name="plan"
-                      value={plan.id}
-                      checked={formData.variation_code === plan.variation_code}
-                      onChange={(e) => handlePlanChange(e.target.value)}
-                      className="sr-only"
-                    />
-                    <div>
-                      <p className="font-medium">{plan.data}</p>
-                      <p className="text-sm text-gray-500">{plan.validity}</p>
-                    </div>
-                    <span className="font-semibold">₦{plan.price}</span>
-                  </label>
-                ))}
+                {dataPlans
+                  .filter(plan => {
+                    const name = plan.name.toLowerCase();
+                    const getDays = (n) => {
+                      if (n.includes('month')) {
+                        const m = n.match(/(\d+)\s*month/);
+                        return m ? parseInt(m[1]) * 30 : 30;
+                      }
+                      if (n.includes('week')) {
+                        const w = n.match(/(\d+)\s*week/);
+                        return w ? parseInt(w[1]) * 7 : 7;
+                      }
+                      const d = n.match(/(\d+)\s*day/);
+                      if (d) return parseInt(d[1]);
+                      return null;
+                    };
+
+                    const days = getDays(name);
+                    if (activeTab === 'Daily') return days !== null && days >= 1 && days <= 5;
+                    if (activeTab === 'Weekly') return days !== null && days > 5 && days <= 7;
+                    if (activeTab === 'Monthly') return days !== null && days > 7;
+                    if (activeTab === 'Special Plans') return days === null;
+                    return true;
+                  })
+                  .map((plan) => (
+                    <label
+                      key={plan.id}
+                      className={`p-4 border rounded-xl flex justify-between items-center cursor-pointer transition-all ${formData.variation_code === plan.variation_code
+                        ? 'border-purple-600 bg-purple-50 text-purple-700'
+                        : 'border-gray-200 hover:border-purple-400 hover:bg-gray-50'
+                        }`}
+                    >
+                      <input
+                        type="radio"
+                        name="plan"
+                        value={plan.id}
+                        checked={formData.variation_code === plan.variation_code}
+                        onChange={(e) => handlePlanChange(e.target.value)}
+                        className="sr-only"
+                      />
+                      <div>
+                        <p className="font-medium">{plan.data}</p>
+                        <p className="text-sm text-gray-500">{plan.validity}</p>
+                      </div>
+                      <span className="font-semibold">₦{plan.price}</span>
+                    </label>
+                  ))}
               </div>
             )}
           </div>

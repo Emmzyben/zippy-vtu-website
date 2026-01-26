@@ -19,8 +19,8 @@ const NetworkSelector = ({ value, onChange }) => {
             type="button"
             onClick={() => onChange(net.id)}
             className={`flex items-center justify-center gap-2 p-3 rounded-lg border transition ${value === net.id
-                ? 'border-[#5C2D91] bg-[#5C2D91] text-white'
-                : 'border-neutral-200 hover:border-[#5C2D91]'
+              ? 'border-[#5C2D91] bg-[#5C2D91] text-white'
+              : 'border-neutral-200 hover:border-[#5C2D91]'
               }`}
           >
             <img src={net.logo} alt={net.name} className="w-8 h-8" />
