@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Smartphone, Zap, Shield, BarChart3, ArrowRight, Users, TrendingUp, Clock, Download, Plane } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useInstall } from '../context/InstallContext';
+import zippyAppImg from '../assets/zippyapp.jpeg';
 
 
 const Landing = () => {
@@ -167,7 +168,7 @@ const Landing = () => {
             <div className="relative group">
               <div className="w-72 md:w-80 h-[580px] md:h-[640px] bg-black rounded-[3rem] p-3 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-700 overflow-hidden ring-4 ring-white/10">
                 <img
-                  src="/zippyapp.jpeg"
+                  src={zippyAppImg}
                   alt="Zippy Pay App"
                   className="w-full h-full object-cover rounded-[2.2rem]"
                 />
@@ -261,7 +262,7 @@ const Landing = () => {
                 <div className="relative z-10 transform -rotate-6 hover:rotate-0 transition-transform duration-700">
                   <div className="bg-black border-8 border-gray-900 rounded-[3rem] p-1 shadow-2xl w-[280px] h-[580px] overflow-hidden">
                     <img
-                      src="/zippyapp.jpeg"
+                      src={zippyAppImg}
                       alt="Zippy Pay Dashboard"
                       className="w-full h-full object-cover rounded-[2.2rem]"
                     />
