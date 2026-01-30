@@ -6,9 +6,12 @@ import TransactionCard from '../components/TransactionCard';
 
 import { Smartphone } from 'lucide-react';
 
+import { useInstall } from '../context/InstallContext';
+
 const Home = () => {
   const { user } = useAuth();
   const { transactions } = useWallet();
+  const { canInstall, install, isInstalled } = useInstall();
 
   const recentTransactions = transactions.slice(0, 5);
 
@@ -23,15 +26,15 @@ const Home = () => {
             <p className="text-sm text-neutral-500 mt-1">Welcome back to Zippy Pay</p>
           </div>
 
-          {/* 
-          <a
-            href="https://expo.dev/artifacts/eas/uFpfGDL96oxtFEo9HwgmpF.apk"
-            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95"
-          >
-            <Smartphone size={18} />
-            <span className="font-semibold text-sm">Get Mobile App</span>
-          </a>
-          */}
+          {!isInstalled && (
+            <button
+              onClick={install}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5C2D91] to-[#2E1647] text-white px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95 animate-in slide-in-from-right duration-500"
+            >
+              <Smartphone size={18} />
+              <span className="font-semibold text-sm">Install App</span>
+            </button>
+          )}
         </div>
 
         <div className="grid gap-6 mb-8">

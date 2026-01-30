@@ -31,6 +31,9 @@ import ResetPassword from './pages/ResetPassword';
 import NoInternet from './pages/NoInternet';
 import { NotificationProvider } from './components/notificationContext';
 import InstallPromptModal from './components/InstallPromptModal';
+import { InstallProvider } from './context/InstallContext';
+import FloatingInstallButton from './components/FloatingInstallButton';
+import InstallInstructions from './components/InstallInstructions';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -235,18 +238,23 @@ function AppRoutes() {
   );
 }
 
+
 function App() {
   return (
     <NotificationProvider>
-      <AuthProvider>
-        <WalletProvider>
-          <Router>
-            <AppRoutes />
-            <EmailVerificationChecker />
-            <InstallPromptModal />
-          </Router>
-        </WalletProvider>
-      </AuthProvider>
+      <InstallProvider>
+        <AuthProvider>
+          <WalletProvider>
+            <Router>
+              <AppRoutes />
+              <EmailVerificationChecker />
+              <InstallPromptModal />
+              <FloatingInstallButton />
+              <InstallInstructions />
+            </Router>
+          </WalletProvider>
+        </AuthProvider>
+      </InstallProvider>
     </NotificationProvider>
   );
 }

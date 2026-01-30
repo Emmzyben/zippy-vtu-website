@@ -1,57 +1,28 @@
 import { useState, useEffect } from 'react';
 import { Smartphone, Download, X, CheckCircle2 } from 'lucide-react';
 
+import { useInstall } from '../context/InstallContext';
+
 const InstallPromptModal = () => {
-    const [deferredPrompt, setDeferredPrompt] = useState(null);
+    const { canInstall, install, isInstalled } = useInstall();
     const [isVisible, setIsVisible] = useState(false);
-    const [isInstalled, setIsInstalled] = useState(false);
+
+    console.log('InstallPromptModal State - canInstall:', canInstall, 'isInstalled:', isInstalled, 'isVisible:', isVisible);
 
     useEffect(() => {
-        // Check if app is already installed
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            return;
-        }
-
-        const handleBeforeInstallPrompt = (e) => {
-            // Prevent Chrome 67 and earlier from automatically showing the prompt
-            e.preventDefault();
-            // Stash the event so it can be triggered later.
-            setDeferredPrompt(e);
-
+        if (canInstall && !isInstalled) {
             // Check if user has already dismissed it in this session
             const isDismissed = sessionStorage.getItem('installPromptDismissed');
             if (!isDismissed) {
                 // Show the modal after a short delay
-                setTimeout(() => setIsVisible(true), 3000);
+                const timer = setTimeout(() => setIsVisible(true), 3000);
+                return () => clearTimeout(timer);
             }
-        };
-
-        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-        window.addEventListener('appinstalled', () => {
-            setDeferredPrompt(null);
-            setIsVisible(false);
-            setIsInstalled(true);
-            console.log('PWA was installed');
-        });
-
-        return () => {
-            window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-        };
-    }, []);
+        }
+    }, [canInstall, isInstalled]);
 
     const handleInstall = async () => {
-        if (!deferredPrompt) return;
-
-        // Show the install prompt
-        deferredPrompt.prompt();
-
-        // Wait for the user to respond to the prompt
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to the install prompt: ${outcome}`);
-
-        // We've used the prompt, and can't use it again, throw it away
-        setDeferredPrompt(null);
+        await install();
         setIsVisible(false);
     };
 
