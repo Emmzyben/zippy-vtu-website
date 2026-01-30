@@ -2,7 +2,7 @@
   "name": "Zippy Pay",
   "short_name": "ZippyPay",
   "description": "Lightning Fast Digital Payments",
-  "start_url": "/",
+  "start_url": "/login",
   "display": "standalone",
   "background_color": "#5C2D91",
   "theme_color": "#5C2D91",

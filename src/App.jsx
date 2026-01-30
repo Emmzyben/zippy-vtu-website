@@ -62,12 +62,21 @@ const PublicRoute = ({ children }) => {
 
 const AuthRedirect = () => {
   const { isAuthenticated, loading } = useAuth();
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
   if (loading) {
     return null;
   }
 
-  return isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/landing" />;
+  // If already logged in, always go home
+  if (isAuthenticated) {
+    return <Navigate to="/home" />;
+  }
+
+  // If not logged in:
+  // - If running as an installed app (standalone), go straight to login
+  // - If running in a browser, show the landing page
+  return isStandalone ? <Navigate to="/login" /> : <Navigate to="/landing" />;
 };
 
 function AppRoutes() {
