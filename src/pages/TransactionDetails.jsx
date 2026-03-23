@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useWallet } from '../context/WalletContext';
+import api from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import {
   ArrowLeft,
@@ -30,17 +31,9 @@ const TransactionDetails = () => {
     } else {
       const fetchTransaction = async () => {
         try {
-          const response = await fetch(
-            `http://localhost:5000/api/transactions/${id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-              },
-            }
-          );
-          if (response.ok) {
-            const data = await response.json();
-            setTransaction(data.transaction);
+          const response = await api.get(`/transactions/${id}`);
+          if (response.data.success) {
+            setTransaction(response.data.transaction);
           }
         } catch (error) {
           console.error('Failed to fetch transaction:', error);
