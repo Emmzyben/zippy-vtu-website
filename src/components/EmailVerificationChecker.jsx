@@ -7,7 +7,8 @@ const EmailVerificationChecker = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated && user && !user.is_verified) {
+    const isVerified = user?.is_verified === 1 || user?.is_verified === "1" || user?.is_verified === true;
+    if (isAuthenticated && user && !isVerified) {
       setShowModal(true);
     } else {
       setShowModal(false);
