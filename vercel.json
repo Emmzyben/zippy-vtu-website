@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://zippy-vtu.onrender.com/api/$1"
+      "destination": "https://api.zippypay.ng/php-backend/api/$1"
     },
     {
       "source": "/(.*)",
