@@ -69,6 +69,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const changePassword = async (passwords) => {
+    try {
+      return await authService.changePassword(passwords);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const register = async (userData) => {
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
@@ -114,7 +122,8 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     loginWithToken,
-    verifyEmail
+    verifyEmail,
+    changePassword
   };
 
   return (

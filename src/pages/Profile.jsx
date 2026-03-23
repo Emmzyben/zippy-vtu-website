@@ -4,7 +4,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { User, Phone, Mail, Lock, X, Save, Eye, EyeOff } from 'lucide-react';
 
 const Profile = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, changePassword } = useAuth();
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -37,7 +37,10 @@ const Profile = () => {
     }
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await changePassword({
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword
+      });
       setSuccess('Password changed successfully!');
       setIsChangingPassword(false);
       setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
