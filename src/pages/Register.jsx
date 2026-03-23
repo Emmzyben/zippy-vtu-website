@@ -47,7 +47,6 @@ const Register = () => {
       };
 
       const response = await register(userData);
-      console.log('📝 Registration response:', response);
       showNotification({ type: 'success', message: 'Registration successful! Welcome aboard.' });
       navigate('/home');
     } catch (err) {

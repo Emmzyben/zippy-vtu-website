@@ -49,30 +49,26 @@ export const WalletProvider = ({ children }) => {
   const fetchWalletData = async () => {
     if (!user || !isAuthenticated) return;
     
-    console.log('💰 Fetching wallet data for user:', user.id);
     dispatch({ type: 'SET_LOADING', payload: true });
     
     try {
       // Fetch balance
       try {
         const balance = await walletService.getBalance();
-        console.log('💵 Balance fetched:', balance);
         dispatch({ type: 'SET_BALANCE', payload: balance });
       } catch (balError) {
-        console.error('❌ Failed to fetch balance:', balError);
+        // Silently handle balance fetch error in UI
       }
 
       // Fetch transactions
       try {
         const transactions = await walletService.getTransactions();
-        console.log('📑 Transactions fetched:', transactions?.length);
         dispatch({ type: 'SET_TRANSACTIONS', payload: transactions || [] });
       } catch (txError) {
-        console.error('❌ Failed to fetch transactions:', txError);
+        // Silently handle transactions fetch error in UI
       }
       
     } catch (error) {
-      console.error('❌ Wallet data fetch error:', error);
       dispatch({ type: 'SET_ERROR', payload: error.message });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
