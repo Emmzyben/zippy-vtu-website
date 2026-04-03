@@ -18,7 +18,7 @@ const InstallInstructions = () => {
                 </button>
 
                 <div className="flex flex-col items-center text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-[#5C2D91] to-[#2E1647] rounded-3xl flex items-center justify-center mb-6 shadow-xl">
+                    <div className="w-20 h-20 bg-gradient-to-br from-[#e3984d] to-[#2E1647] rounded-3xl flex items-center justify-center mb-6 shadow-xl">
                         <img src="/bg.png" alt="Zippy Pay" className="w-16 h-16 rounded-xl" />
                     </div>
 
@@ -71,7 +71,7 @@ const InstallInstructions = () => {
 
                     <button
                         onClick={() => setShowInstructions(false)}
-                        className="mt-8 w-full bg-[#5C2D91] py-4 rounded-2xl text-white font-bold shadow-lg shadow-purple-200 hover:bg-[#4A2475] transition-all"
+                        className="mt-8 w-full bg-[#e3984d] py-4 rounded-2xl text-white font-bold shadow-lg shadow-purple-200 hover:bg-[#4A2475] transition-all"
                     >
                         Got it!
                     </button>

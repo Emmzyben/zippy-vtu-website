@@ -7,9 +7,15 @@ const FloatingInstallButton = () => {
     const { canInstall, isInstalled, install } = useInstall();
     const location = useLocation();
 
-    // List of dashboard paths where we want to hide the floating button
-    const dashboardPaths = ['/home', '/wallet', '/transactions', '/profile', '/airtime', '/data', '/bills', '/electricity', '/cable', '/flights'];
-    const isDashboard = dashboardPaths.includes(location.pathname) || location.pathname.startsWith('/transactions/');
+    // Hide the floating button on ALL authenticated dashboard pages
+    // The install button is already available in the Home header
+    const dashboardPaths = [
+        '/home', '/wallet', '/transactions', '/profile', 
+        '/airtime', '/data', '/bills', '/electricity', '/cable', '/flights',
+        '/app/explore-events', '/app/events', '/my-tickets', '/organizer'
+    ];
+    
+    const isDashboard = dashboardPaths.some(path => location.pathname.startsWith(path));
 
     if (isInstalled || isDashboard) return null;
 
@@ -17,12 +23,10 @@ const FloatingInstallButton = () => {
         <div className="fixed bottom-6 right-6 z-[60]">
             <button
                 onClick={install}
-                className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#5C2D91] to-[#2E1647] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group ring-4 ring-white/20"
+                className="flex items-center justify-center gap-2 bg-[#e3984d] text-white px-5 py-3 rounded-md shadow-lg border border-neutral-800 hover:bg-[#c98542] transition-all hover:-translate-y-0.5 active:translate-y-0 group"
             >
-                <div className="bg-white/20 p-1.5 rounded-full backdrop-blur-md">
-                    <Smartphone size={20} className="group-hover:rotate-12 transition-transform" />
-                </div>
-                <span className="font-semibold text-sm md:text-base">Install App</span>
+                <Smartphone size={16} className="text-neutral-300" />
+                <span className="font-bold text-[10px] uppercase tracking-widest mt-0.5">Install App</span>
             </button>
         </div>
     );

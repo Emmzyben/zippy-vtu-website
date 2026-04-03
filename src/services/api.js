@@ -29,9 +29,17 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401 && !error.config.url.includes('/user/me')) {
+    // Only redirect to login if it's a 401 error and not from the login or initial user check
+    const isAuthRequest = error.config.url.includes('/auth/login') || error.config.url.includes('/user/me');
+    
+    if (error.response?.status === 401 && !isAuthRequest) {
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      localStorage.removeItem('user');
+      
+      // Prevent multiple redirects if we are already on the login page
+      if (!window.location.pathname.includes('/login')) {
+        window.location.href = '/login?expired=true';
+      }
     }
     return Promise.reject(error);
   }

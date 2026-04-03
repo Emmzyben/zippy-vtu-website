@@ -38,7 +38,7 @@ const InstallPromptModal = () => {
         <div className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300">
             <div className="bg-white w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden transform animate-in slide-in-from-bottom-8 duration-500">
                 {/* Header/Banner */}
-                <div className="bg-gradient-to-br from-[#5C2D91] to-[#2E1647] p-8 flex flex-col items-center relative">
+                <div className="bg-gradient-to-br from-[#e3984d] to-[#2E1647] p-8 flex flex-col items-center relative">
                     <button
                         onClick={handleDismiss}
                         className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
@@ -86,7 +86,7 @@ const InstallPromptModal = () => {
                         </button>
                         <button
                             onClick={handleInstall}
-                            className="bg-[#5C2D91] py-3 px-4 rounded-xl font-bold text-white shadow-lg shadow-purple-200 flex items-center justify-center gap-2 hover:bg-[#4A2475] transition-all transform hover:scale-[1.02]"
+                            className="bg-[#e3984d] py-3 px-4 rounded-xl font-bold text-white shadow-lg shadow-purple-200 flex items-center justify-center gap-2 hover:bg-[#4A2475] transition-all transform hover:scale-[1.02]"
                         >
                             <Download size={20} />
                             Install Now

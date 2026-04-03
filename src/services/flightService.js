@@ -10,6 +10,15 @@ export const flightService = {
         }
     },
 
+    getAffiliateSettings: async () => {
+        try {
+            const response = await api.get('/flights/settings');
+            return response.data;
+        } catch (error) {
+            throw error.response?.data?.message || 'Failed to fetch affiliate settings';
+        }
+    },
+
     searchFlights: async (searchData) => {
         try {
             const response = await api.post('/flights/search', searchData);

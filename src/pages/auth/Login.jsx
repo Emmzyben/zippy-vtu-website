@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { authService } from '../services/authService';
-
+import { useAuth } from '../../context/AuthContext';
+import NotificationModal from '../../components/NotificationModal';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { MdEmail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
 
@@ -61,20 +61,16 @@ const Login = () => {
 
   return (
     <div
-      className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-amber-600 px-4"
+      className="flex items-center justify-center min-h-screen bg-neutral-50 px-4 py-12"
     >
-      <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl m-4 p-8 relative z-10">
-        <div className="text-center mb-6">
-          <img
-            src="/bg.png"
-            alt="Zippy Pay Logo"
-            className="h-30 w-30 mx-auto rounded-full object-cover shadow"
-          />
-          <h1 className="text-2xl text-gray-600 font-bold mt-4">
-            Sign In
-          </h1>
-          <p className="text-sm text-gray-500">
-            Your gateway to seamless transactions
+      <div className="w-full max-w-lg bg-white shadow-[0_0_40px_rgba(0,0,0,0.05)] border border-neutral-100 rounded-[2rem] m-4 p-8 md:p-10 relative z-10">
+        <div className="text-center mb-8">
+          <Link to="/" className="inline-block text-2xl font-black mb-4 hover:scale-105 transition-transform">
+            <img src="/bg.png" alt="" className="w-40 h-16 mx-auto" />
+          </Link>
+
+          <p className="text-base text-neutral-500 mt-2">
+            Sign in to your ZippyPay dashboard
           </p>
         </div>
 
@@ -94,7 +90,7 @@ const Login = () => {
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
+            <label htmlFor="email" className="block text-neutral-700 font-bold mb-2 text-sm uppercase tracking-wide">
               Email Address
             </label>
             <div className="relative">
@@ -105,7 +101,7 @@ const Login = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5C2D91]"
+                className="w-full pl-10 pr-3 py-3 text-base border border-neutral-200 rounded-xl focus:ring-2 focus:ring-[#e3984d]/20 focus:border-[#e3984d] transition-all bg-neutral-50 focus:bg-white"
                 required
               />
             </div>
@@ -113,7 +109,7 @@ const Login = () => {
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
+            <label htmlFor="password" className="block text-neutral-700 font-bold mb-2 text-sm uppercase tracking-wide">
               Password
             </label>
             <div className="relative">
@@ -124,7 +120,7 @@ const Login = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5C2D91]"
+                className="w-full pl-10 pr-10 py-3 text-base border border-neutral-200 rounded-xl focus:ring-2 focus:ring-[#e3984d]/20 focus:border-[#e3984d] transition-all bg-neutral-50 focus:bg-white"
                 required
               />
               <button
@@ -141,7 +137,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-900 to-amber-600 text-white px-8 py-3 rounded-full font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 flex items-center justify-center"
+            className="w-full bg-[#e3984d] text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-[#c98542] transition-all duration-300 flex items-center justify-center shadow-lg shadow-[#e3984d]/25 mt-8"
           >
             {loading ? <Spinner /> : 'Sign In'}
           </button>
@@ -150,20 +146,22 @@ const Login = () => {
 
 
           {/* Register */}
-          <p className="text-center text-sm text-gray-600 mt-4">
-            Don’t have an account?{' '}
-            <Link to="/register" className="text-[#F59E0B] hover:underline font-medium">
-              Sign up
-            </Link>
-          </p>
-          <p className="text-center text-sm text-gray-600">
-            <Link to="/forgot-password" className="text-[#F59E0B] hover:underline font-medium">
-              Forgot Password?
-            </Link>
-          </p>
-          <p className="text-center text-sm text-gray-600">
-            <Link to="/" className="hover:underline font-medium">Or go to Landing Page</Link>
-          </p>
+          <div className="pt-6 border-t border-neutral-100 flex flex-col space-y-3">
+            <p className="text-center text-base text-neutral-600">
+              Don’t have an account?{' '}
+              <Link to="/register" className="text-[#e3984d] hover:underline font-bold">
+                Sign up instead
+              </Link>
+            </p>
+            <p className="text-center text-base text-neutral-600">
+              <Link to="/forgot-password" className="hover:text-[#e3984d] transition-colors font-medium">
+                Forgot Password?
+              </Link>
+            </p>
+            <p className="text-center text-sm text-neutral-400 mt-2">
+              <Link to="/" className="hover:text-neutral-600 transition-colors">← Back to Home</Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>

@@ -1,73 +1,68 @@
 import { Link } from 'react-router-dom';
-import { Smartphone, Wifi, Receipt, Plane } from 'lucide-react';
+import { Smartphone, Wifi, Receipt, Plane, Ticket, LayoutDashboard } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const QuickActions = () => {
+  const { user } = useAuth();
+
   const actions = [
     {
       icon: Smartphone,
-      label: 'Buy Airtime',
+      label: 'Airtime',
       path: '/airtime',
-      iconColor: 'text-red-500'
+      color: 'text-red-500'
     },
     {
       icon: Wifi,
-      label: 'Buy Data',
+      label: 'Data',
       path: '/data',
-      iconColor: 'text-green-500'
+      color: 'text-blue-500'
     },
     {
       icon: Receipt,
-      label: 'Pay Bills',
+      label: 'Bills',
       path: '/bills',
-      iconColor: 'text-blue-500'
+      color: 'text-green-500'
     },
     {
       icon: Plane,
-      label: 'Book Flight',
+      label: 'Flights',
       path: '/flights',
-      iconColor: 'text-purple-500',
-      comingSoon: true
+      color: 'text-purple-600'
     },
+    {
+      icon: Ticket,
+      label: 'Events',
+      path: '/app/explore-events',
+      color: 'text-amber-500'
+    },
+
+    {
+      icon: LayoutDashboard,
+      label: 'Events Dashboard',
+      path: '/organizer/dashboard',
+      color: 'text-purple-900',
+      hidden: !user?.is_organizer
+    }
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-      {actions.map((action) => {
-        const IconComponent = action.icon;
-        const isComingSoon = action.comingSoon;
-
-        const Content = (
-          <div className="flex flex-col items-center gap-3 relative">
-            <div className="p-3 rounded-full bg-neutral-100 border border-gray-200">
-              <IconComponent size={24} className={`${action.iconColor}`} />
-            </div>
-            <span className="font-medium text-sm text-center">{action.label}</span>
-            {isComingSoon && (
-              <span className="absolute -top-2 -right-2 bg-purple-100 text-purple-700 text-[10px] px-2 py-0.5 rounded-full font-bold border border-purple-200">
-                Coming Soon
-              </span>
-            )}
-          </div>
-        );
-
-        if (isComingSoon) {
-          return (
-            <div
-              key={action.path}
-              className="bg-white/50 cursor-not-allowed text-neutral-400 p-6 rounded-xl border border-gray-100 shadow-sm opacity-70"
-            >
-              {Content}
-            </div>
-          );
-        }
+    <div className="grid grid-cols-3 gap-2">
+      {actions.filter(a => !a.hidden).map((action) => {
+        const Icon = action.icon;
 
         return (
           <Link
             key={action.path}
             to={action.path}
-            className="bg-white hover:bg-neutral-50 text-neutral-800 p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.03]"
+            className="flex flex-col items-center gap-2 p-4 bg-white border border-neutral-100 rounded-lg hover:border-neutral-200 hover:bg-neutral-50 transition-colors shadow-sm group"
           >
-            {Content}
+            <div className="p-2 rounded-md bg-neutral-50 group-hover:bg-[#e3984d] group-hover:text-white transition-colors">
+              <Icon size={20} className={action.color} />
+            </div>
+            <span className="text-[10px] font-bold text-neutral-600 uppercase tracking-widest text-center whitespace-nowrap">
+              {action.label}
+            </span>
           </Link>
         );
       })}

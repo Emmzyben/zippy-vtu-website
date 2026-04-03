@@ -73,7 +73,7 @@ const PhoneBeneficiarySelector = ({ value, onSelect, onAdd }) => {
                     id="beneficiaryInput"
                     value={value}
                     onChange={(e) => onSelect(e.target.value)}
-                    className="flex-1 border border-neutral-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#5C2D91] transition"
+                    className="flex-1 border border-neutral-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#e3984d] transition"
                     placeholder="08012345678"
                     required
                 />
@@ -132,7 +132,7 @@ const PhoneBeneficiarySelector = ({ value, onSelect, onAdd }) => {
                 <button
                     type="button"
                     onClick={handleAdd}
-                    className="mt-3 inline-flex items-center gap-2 text-[#5C2D91] hover:text-[#4A1F7C] text-sm font-medium transition"
+                    className="mt-3 inline-flex items-center gap-2 text-[#e3984d] hover:text-[#4A1F7C] text-sm font-medium transition"
                 >
                     <UserPlus size={16} />
                     Add to beneficiaries

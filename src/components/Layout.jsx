@@ -8,9 +8,11 @@ const Layout = () => {
   const location = useLocation();
 
   // Paths where MobileNavigation should be hidden
-  const hideMobileNavPaths = ['/login', '/register', '/landing', '/faq', '/contact', '/terms', '/privacy', '/verify-email', '/forgot-password'];
+  const hideMobileNavPaths = ['/login', '/register', '/landing', '/faq', '/contact', '/terms', '/privacy', '/verify-email', '/forgot-password', '/events'];
 
-  const shouldShowMobileNav = !hideMobileNavPaths.includes(location.pathname);
+  const shouldShowMobileNav = !hideMobileNavPaths.some(path => 
+    location.pathname === path || location.pathname.startsWith(path + '/')
+  );
 
   return (
     <div className="min-h-screen bg-neutral-50">

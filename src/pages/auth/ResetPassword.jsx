@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useNotification } from '../components/notificationContext';
-import LoadingSpinner from '../components/LoadingSpinner';
+import { useNotification } from '../../components/notificationContext';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import { authService } from '../services/authService';
+import { authService } from '../../services/authService';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -119,7 +119,7 @@ const ResetPassword = () => {
                 name="newPassword"
                 value={formData.newPassword}
                 onChange={handleChange}
-                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5C2D91]"
+                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e3984d]"
                 required
                 minLength={8}
               />
@@ -149,7 +149,7 @@ const ResetPassword = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5C2D91]"
+                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e3984d]"
                 required
                 minLength={8}
               />

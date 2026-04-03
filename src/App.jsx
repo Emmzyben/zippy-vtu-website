@@ -8,27 +8,46 @@ import useOnline from './hooks/useOnline';
 import EmailVerificationChecker from './components/EmailVerificationChecker';
 
 // Pages
-import Landing from './pages/landing';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Home from './pages/Home';
-import Airtime from './pages/Airtime';
-import Data from './pages/Data';
-import Bills from './pages/Bills';
-import Electricity from './pages/Electricity';
-import Cable from './pages/Cable';
-import Flights from './pages/Flights';
-import Wallet from './pages/Wallet';
-import Transactions from './pages/Transactions';
-import TransactionDetails from './pages/TransactionDetails';
-import Profile from './pages/Profile';
-import FAQ from './pages/FAQ';
-import Contact from './pages/Contact';
-import Terms from './pages/Terms';
-import Privacy from './pages/Privacy';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
-import NoInternet from './pages/NoInternet';
+// Pages
+import Landing from './pages/public/landing';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import Home from './pages/dashboard/Home';
+import Airtime from './pages/dashboard/Airtime';
+import Data from './pages/dashboard/Data';
+import Bills from './pages/dashboard/Bills';
+import Electricity from './pages/dashboard/Electricity';
+import Cable from './pages/dashboard/Cable';
+import Flights from './pages/dashboard/Flights';
+import Wallet from './pages/dashboard/Wallet';
+import Transactions from './pages/dashboard/Transactions';
+import TransactionDetails from './pages/dashboard/TransactionDetails';
+import Profile from './pages/dashboard/Profile';
+import FAQ from './pages/public/FAQ';
+import Contact from './pages/public/Contact';
+import Terms from './pages/public/Terms';
+import Privacy from './pages/public/Privacy';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import ResetPassword from './pages/auth/ResetPassword';
+import NoInternet from './pages/dashboard/NoInternet';
+
+// Event Ticketing Pages
+import Events from './pages/dashboard/Events';
+import EventDetails from './pages/dashboard/EventDetails';
+import EventsInfo from './pages/public/EventsInfo';
+import PublicEventDetails from './pages/public/PublicEventDetails';
+import MyTickets from './pages/dashboard/MyTickets';
+import TicketDetails from './pages/dashboard/TicketDetails';
+
+// Organizer Pages
+// Organizer Pages
+import OrganizerDashboard from './pages/dashboard/organizer/Dashboard';
+import CreateEvent from './pages/dashboard/organizer/CreateEvent';
+import ManageEvents from './pages/dashboard/organizer/ManageEvents';
+import Scanner from './pages/dashboard/organizer/Scanner';
+import EventPerformance from './pages/dashboard/organizer/EventPerformance';
+import OrganizerTransactions from './pages/dashboard/organizer/Transactions';
+
 import { NotificationProvider } from './components/notificationContext';
 import InstallPromptModal from './components/InstallPromptModal';
 import { InstallProvider } from './context/InstallContext';
@@ -127,6 +146,22 @@ function AppRoutes() {
             </PublicRoute>
           }
         />
+        <Route
+          path="/events"
+          element={
+            <PublicRoute>
+              <EventsInfo />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/events/:id"
+          element={
+            <PublicRoute>
+              <PublicEventDetails />
+            </PublicRoute>
+          }
+        />
 
         {/* Protected Routes */}
         <Route
@@ -215,6 +250,90 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Event Ticketing Routes (Internal) */}
+        <Route
+          path="/app/explore-events"
+          element={
+            <ProtectedRoute>
+              <Events />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/app/events/:id"
+          element={
+            <ProtectedRoute>
+              <EventDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-tickets"
+          element={
+            <ProtectedRoute>
+              <MyTickets />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-tickets/:id"
+          element={
+            <ProtectedRoute>
+              <TicketDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Organizer Routes */}
+        <Route
+          path="/organizer/dashboard"
+          element={
+            <ProtectedRoute>
+              <OrganizerDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organizer/create-event"
+          element={
+            <ProtectedRoute>
+              <CreateEvent />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organizer/manage-events"
+          element={
+            <ProtectedRoute>
+              <ManageEvents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organizer/scanner"
+          element={
+            <ProtectedRoute>
+              <Scanner />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organizer/event-performance/:id"
+          element={
+            <ProtectedRoute>
+              <EventPerformance />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organizer/transactions"
+          element={
+            <ProtectedRoute>
+              <OrganizerTransactions />
             </ProtectedRoute>
           }
         />

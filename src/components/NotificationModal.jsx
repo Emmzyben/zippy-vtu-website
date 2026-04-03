@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { Check, X, AlertCircle } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, Info } from 'lucide-react';
+import clsx from 'clsx';
 
 const NotificationModal = ({
   isOpen,
   onClose,
-  type,
+  type = 'info',
   title,
   message,
   autoClose = true,
@@ -20,83 +21,36 @@ const NotificationModal = ({
     }
   }, [isOpen, autoClose, autoCloseDelay, onClose]);
 
-  if (!isOpen) return null;
-
   const getIcon = () => {
-    switch (type) {
-      case 'success':
-        return <Check className="text-green-400" size={24} />;
-      case 'error':
-        return <X className="text-red-400" size={24} />;
-      case 'warning':
-        return <AlertCircle className="text-yellow-400" size={24} />;
-      default:
-        return <AlertCircle className="text-blue-400" size={24} />;
-    }
-  };
-
-  const getBorderColor = () => {
-    switch (type) {
-      case 'success':
-        return 'border-green-400/40';
-      case 'error':
-        return 'border-red-400/40';
-      case 'warning':
-        return 'border-yellow-400/40';
-      default:
-        return 'border-blue-400/40';
-    }
-  };
-
-  const getTitleColor = () => {
-    switch (type) {
-      case 'success':
-        return 'text-green-200';
-      case 'error':
-        return 'text-red-200';
-      case 'warning':
-        return 'text-yellow-200';
-      default:
-        return 'text-blue-200';
-    }
-  };
-
-  const getMessageColor = () => {
-    switch (type) {
-      case 'success':
-        return 'text-green-100';
-      case 'error':
-        return 'text-red-100';
-      case 'warning':
-        return 'text-yellow-100';
-      default:
-        return 'text-blue-100';
-    }
+    if (type === 'success') return <CheckCircle2 size={18} className="text-green-600" />;
+    if (type === 'error') return <AlertCircle size={18} className="text-red-500" />;
+    if (type === 'warning') return <AlertCircle size={18} className="text-amber-500" />;
+    return <Info size={18} className="text-neutral-900" />;
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div
-        className={`rounded-2xl border ${getBorderColor()} bg-white/10 backdrop-blur-md shadow-2xl max-w-md w-full mx-4 transition-all duration-300`}
-      >
-        <div className="p-6">
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0">{getIcon()}</div>
-            <div className="flex-1">
-              <h3 className={`text-lg font-semibold ${getTitleColor()}`}>
-                {title}
-              </h3>
-              <p className={`text-sm mt-1 ${getMessageColor()}`}>{message}</p>
-            </div>
-            <button
-              onClick={onClose}
-              className="flex-shrink-0 text-neutral-300 hover:text-white transition-colors"
-            >
-              <X size={20} />
-            </button>
-          </div>
-        </div>
+    <div
+      className={clsx(
+        'fixed top-5 right-5 z-[10000] transition-all duration-300 ease-in-out transform',
+        isOpen ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-4 opacity-0 scale-95 pointer-events-none',
+        'w-80 min-h-[64px] bg-white border border-neutral-100 rounded-lg shadow-xl shadow-[#e3984d]/5 p-4 flex items-start gap-3'
+      )}
+    >
+      <div className="shrink-0 mt-0.5">{getIcon()}</div>
+      <div className="flex-1 min-w-0">
+        {title && (
+          <p className="text-xs font-bold text-neutral-900 mb-0.5 line-clamp-1">{title}</p>
+        )}
+        <p className="text-[10px] font-medium text-neutral-500 leading-relaxed text-balance">
+          {message}
+        </p>
       </div>
+      <button 
+        onClick={onClose} 
+        className="shrink-0 p-1 -mr-1 -mt-1 text-neutral-400 hover:text-neutral-900 hover:bg-neutral-50 rounded transition-colors"
+      >
+        <X size={14} />
+      </button>
     </div>
   );
 };

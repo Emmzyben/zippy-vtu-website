@@ -54,13 +54,13 @@ const TokenModal = ({ isOpen, onClose, token, meterNumber, customerName, amount 
                     </div>
 
                     {/* Token Display */}
-                    <div className="bg-gradient-to-br from-[#5C2D91]/10 to-[#FF8C00]/10 border-2 border-[#5C2D91]/20 rounded-xl p-5">
+                    <div className="bg-gradient-to-br from-[#e3984d]/10 to-[#FF8C00]/10 border-2 border-[#e3984d]/20 rounded-xl p-5">
                         <label className="text-sm font-semibold text-gray-700 block mb-2">
                             Your Electricity Token:
                         </label>
                         <div className="bg-white rounded-lg p-4 border border-gray-200">
                             <div className="flex items-center justify-between gap-3">
-                                <code className="text-lg font-mono font-bold text-[#5C2D91] break-all">
+                                <code className="text-lg font-mono font-bold text-[#e3984d] break-all">
                                     {token}
                                 </code>
                                 <button
@@ -95,7 +95,7 @@ const TokenModal = ({ isOpen, onClose, token, meterNumber, customerName, amount 
                 <div className="p-6 pt-0">
                     <button
                         onClick={onClose}
-                        className="w-full bg-gradient-to-r from-[#5C2D91] to-[#FF8C00] hover:from-[#4A2373] hover:to-[#E67E00] text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+                        className="w-full bg-gradient-to-r from-[#e3984d] to-[#FF8C00] hover:from-[#4A2373] hover:to-[#E67E00] text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
                     >
                         Close
                     </button>

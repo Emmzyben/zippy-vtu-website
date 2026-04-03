@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import LoadingSpinner from '../components/LoadingSpinner';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { CheckCircle, Mail } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { authService } from '../services/authService';
+import { useAuth } from '../../context/AuthContext';
+import { authService } from '../../services/authService';
 
 const OTP_LENGTH = 6;
 
