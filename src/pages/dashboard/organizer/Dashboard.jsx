@@ -86,6 +86,23 @@ const OrganizerDashboard = () => {
                             </p>
                         </div>
 
+                        <div className="space-y-4">
+                            {[
+                                { icon: TrendingUp, title: 'Revenue Control', desc: 'Secure payouts and real-time sales tracking.' },
+                                { icon: Camera, title: 'Gate Management', desc: 'Industry-leading scanning speed (under 100ms).' },
+                                { icon: CheckCircle2, title: 'Auto-Settlement', desc: 'Earnings transferred to your wallet instantly.' }
+                            ].map((f, i) => (
+                                <div key={i} className="flex gap-4 p-4 rounded-lg bg-neutral-50 border border-neutral-100 group hover:bg-white hover:border-neutral-200 transition-all">
+                                    <div className="w-10 h-10 rounded-md bg-white border border-neutral-200 flex items-center justify-center text-[#e3984d]">
+                                        <f.icon size={18} />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-xs text-neutral-900 uppercase tracking-wide">{f.title}</h3>
+                                        <p className="text-[10px] text-neutral-500 font-medium mt-0.5">{f.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
 
                         <button
                             onClick={handleEnroll}
@@ -96,25 +113,7 @@ const OrganizerDashboard = () => {
                         </button>
                     </div>
 
-                    <div className="hidden lg:block relative">
-                        <div className="absolute inset-0 bg-neutral-100 rounded-2xl transform rotate-3 scale-95" />
-                        <div className="relative bg-white border border-neutral-200 rounded-2xl p-8 shadow-2xl">
-                            <div className="flex items-center gap-3 mb-8">
-                                <div className="w-3 h-3 rounded-full bg-red-400" />
-                                <div className="w-3 h-3 rounded-full bg-amber-400" />
-                                <div className="w-3 h-3 rounded-full bg-green-400" />
-                            </div>
-                            <div className="space-y-6">
-                                <div className="h-4 bg-neutral-100 rounded w-1/3" />
-                                <div className="h-32 bg-neutral-50 rounded-lg border border-neutral-100" />
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="h-12 bg-neutral-50 rounded" />
-                                    <div className="h-12 bg-neutral-50 rounded" />
-                                </div>
-                                <div className="h-4 bg-neutral-100 rounded w-1/2" />
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         );
