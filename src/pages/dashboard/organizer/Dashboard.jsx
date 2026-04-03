@@ -74,36 +74,18 @@ const OrganizerDashboard = () => {
     if (!isOrganizer) {
         return (
             <div className="p-4 lg:p-12 max-w-5xl mx-auto">
-                <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
+                <div className="grid lg:grid-cols-1 gap-12 items-center min-h-[70vh]">
                     <div className="space-y-8">
                         <div>
-                            <span className="inline-block px-3 py-1 bg-purple-50 text-[#e3984d] rounded text-[10px] font-bold uppercase tracking-widest border border-purple-100 mb-4">Partner Program</span>
                             <h1 className="text-4xl lg:text-5xl font-black text-neutral-900 tracking-tight leading-[1.1]">
                                 Build Your Brand. <br />
-                                Scale Your Events.
+                                Sell Events.
                             </h1>
                             <p className="text-neutral-500 font-medium text-sm mt-6 leading-relaxed max-w-md">
-                                ZippyPay for Organizers provides the professional tools you need to sell tickets, manage entries, and receive instant payouts. No slop, just performance.
+                                ZippyPay for Organizers provides the professional tools you need to sell tickets, manage entries, and receive instant payouts. No excuses, just performance.
                             </p>
                         </div>
 
-                        <div className="space-y-4">
-                            {[
-                                { icon: TrendingUp, title: 'Revenue Control', desc: 'Secure payouts and real-time sales tracking.' },
-                                { icon: Camera, title: 'Gate Management', desc: 'Industry-leading scanning speed (under 100ms).' },
-                                { icon: CheckCircle2, title: 'Auto-Settlement', desc: 'Earnings transferred to your wallet instantly.' }
-                            ].map((f, i) => (
-                                <div key={i} className="flex gap-4 p-4 rounded-lg bg-neutral-50 border border-neutral-100 group hover:bg-white hover:border-neutral-200 transition-all">
-                                    <div className="w-10 h-10 rounded-md bg-white border border-neutral-200 flex items-center justify-center text-[#e3984d]">
-                                        <f.icon size={18} />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-xs text-neutral-900 uppercase tracking-wide">{f.title}</h3>
-                                        <p className="text-[10px] text-neutral-500 font-medium mt-0.5">{f.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
 
                         <button
                             onClick={handleEnroll}
