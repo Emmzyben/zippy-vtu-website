@@ -91,7 +91,7 @@ const ForgotPassword = () => {
       <div className="w-full max-w-lg bg-white shadow-[0_0_40px_rgba(0,0,0,0.05)] border border-neutral-100 rounded-[2rem] m-4 p-8 md:p-10 relative z-10">
         <div className="text-center mb-8">
           <Link to="/" className="inline-block text-2xl font-black mb-4 hover:scale-105 transition-transform">
-            <img src="/bg.png" alt="Zippy Pay" className="w-35 h-20 object-cover" />
+            <img src="/logo.png" alt="Zippy Pay" className="w-35 h-20 object-cover" />
           </Link>
           <h1 className="text-3xl text-neutral-900 font-black mt-2">
             Forgot Password?

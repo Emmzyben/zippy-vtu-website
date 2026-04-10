@@ -93,7 +93,7 @@ const Landing = () => {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-md border-b border-neutral-100 shadow-sm' : 'bg-transparent'}`}>
         <nav className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
           <div className="font-black text-xl tracking-tight">
-            <img src="/bg.png" alt="Zippy Pay" className="w-35 h-20 object-cover" />
+            <img src="/logo.png" alt="Zippy Pay" className="w-35 h-20 object-cover" />
           </div>
 
           <div className="hidden md:flex items-center space-x-8 text-base font-semibold">
