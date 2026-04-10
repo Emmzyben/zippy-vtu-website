@@ -88,41 +88,6 @@ const EventsInfo = () => {
         </div>
       </section>
 
-      {/* Value Prepositions - For Organizers */}
-      <section className="py-24 bg-neutral-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-             <h2 className="text-3xl lg:text-4xl font-black text-neutral-900 uppercase tracking-tighter">Why Organizers <span className="text-[#e3984d]">Choose Us</span></h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-12">
-            {[
-              {
-                icon: <Zap className="text-[#e3984d]" size={28} />,
-                title: 'Instant Payouts',
-                desc: 'Unlike other platforms, your revenue hits your ZippyPay wallet instantly the moment a ticket is sold. Zero holding period.'
-              },
-              {
-                icon: <Ticket className="text-[#e3984d]" size={28} />,
-                title: 'Secure Ticketing',
-                desc: 'Issue auto-generated, tamper-proof QR tickets directly to your guests\' dashboards. Say goodbye to fake tickets.'
-              },
-              {
-                icon: <Shield className="text-[#e3984d]" size={28} />,
-                title: 'Smart Gate Validation',
-                desc: 'Use our proprietary built-in scanner to securely validate guests at the point of entry in fractions of a second.'
-              }
-            ].map((f, i) => (
-              <div key={i} className="bg-white p-8 rounded-3xl border border-neutral-100 hover:border-[#e3984d]/40 transition-all hover:shadow-2xl hover:shadow-[#e3984d]/10 space-y-6">
-                <div className="w-16 h-16 bg-[#e3984d]/10 rounded-2xl flex items-center justify-center">
-                  {f.icon}
-                </div>
-                <h3 className="text-xl font-black tracking-tight text-neutral-900 uppercase">{f.title}</h3>
-                <p className="text-neutral-500 leading-relaxed font-medium">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Upcoming Events Section */}
       <section id="upcoming-events" className="py-24">

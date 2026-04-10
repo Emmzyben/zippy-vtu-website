@@ -46,5 +46,14 @@ export const walletService = {
     }
   },
 
+  async withdraw(data) {
+    try {
+      const response = await api.post('/wallet/withdraw', data);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Withdrawal failed');
+    }
+  },
+
 
 };
