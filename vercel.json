@@ -3,6 +3,10 @@
     {
       "source": "/api/(.*)",
       "destination": "https://api.zippypay.ng/php-backend/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
